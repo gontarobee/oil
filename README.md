@@ -61,9 +61,17 @@ python3 -m http.server 8080
 
 → `http://localhost:8080` を開く
 
+## Google アナリティクス（GA4）
+
+アクセス解析用に [analytics.js](analytics.js) を用意しています。
+
+1. [Google アナリティクス](https://analytics.google.com/) でプロパティを作成し、**測定ID**（`G-xxxxxxxxxx`）を取得する。
+2. `analytics.js` 内の `GA_MEASUREMENT_ID` にその ID を貼り付けてコミット・push する。
+3. 空のままでは **送信されない**（開発中は未設定のままでも可）。
+
 ## プライバシー
 
-[プライバシーポリシー](privacy-policy.html) を参照してください。
+[プライバシーポリシー](privacy-policy.html) を参照してください（GA4 の記載あり）。
 
 ## ライセンス
 
