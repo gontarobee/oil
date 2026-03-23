@@ -512,3 +512,29 @@ body {
 .legal-page .important p {
   color: #cc9999;
 }
+
+/* ── Guide hub / article list ── */
+.legal-page .guide-article-list {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
+.legal-page .guide-article-list li {
+  margin: 0.85rem 0;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(255, 140, 0, 0.12);
+}
+.legal-page .guide-article-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.legal-page .guide-list-desc {
+  display: block;
+  font-size: 0.85rem;
+  color: #8890a8;
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
+.legal-page .guide-related {
+  margin-top: 2.5rem;
+}

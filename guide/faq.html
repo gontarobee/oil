@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ・注意事項 | 日本石油備蓄枯渇カウンター</title>
+<meta name="description" content="枯渇カウンターの使い方、データの更新、シナリオの意味、免責事項の要点をFAQ形式でまとめました。">
+<link rel="canonical" href="https://gontarobee.github.io/oil/guide/faq.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://gontarobee.github.io/oil/guide/faq.html">
+<meta property="og:title" content="FAQ・注意事項">
+<meta property="og:description" content="非公式ツールの前提とよくある質問。">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="stars"></div>
+<div class="stars2"></div>
+<div class="stars3"></div>
+
+<div class="legal-page">
+  <p class="legal-back"><a href="index.html">← ガイド一覧</a> ・ <a href="../index.html">カウンター</a></p>
+
+  <h1>このカウンターの使い方・注意事項（FAQ）</h1>
+  <p class="updated">詳細な法的条項は <a href="../privacy-policy.html">プライバシーポリシー・免責・利用規約</a> を参照してください。</p>
+
+  <h2 id="q1">このサイトは政府公式ですか？</h2>
+  <p><strong>いいえ。</strong>個人が運営する非公式のページです。表示は教育・可視化目的の試算であり、資源エネルギー庁等の公式見解や予測を代表するものではありません。</p>
+
+  <h2 id="q2">カウントダウンの数字は何を意味しますか？</h2>
+  <p>トップに示した<strong>備蓄日数の起算値</strong>と、選択中の<strong>シナリオ</strong>（輸入がどれだけ減るか・節約がどれだけあるかの仮定）から、単純な線形モデルで「備蓄が尽きるまでのおおよその日時」を出しています。<a href="how-days-calculated.html">計算の考え方</a>を参照してください。</p>
+
+  <h2 id="q3">シナリオの内容を教えてください</h2>
+  <ul>
+    <li><strong>完全輸入停止</strong>：輸入がゼロになり、備蓄だけで消費を賄う仮定。</li>
+    <li><strong>ホルムズ海峡封鎖</strong>：輸入の<strong>87%</strong>が途絶える仮定に加え、需要が<strong>10%節約</strong>される仮定（<a href="hormuz-japan-imports.html">解説</a>）。</li>
+    <li><strong>輸入半減</strong>：輸入が半分になり、<strong>5%節約</strong>がある仮定。</li>
+  </ul>
+
+  <h2 id="q4">データはいつ更新されますか？</h2>
+  <p>備蓄日数の基準は、資源エネルギー庁の公表や報道を手動で反映しています。更新のタイミングは一定ではありません。最新値は必ず<a href="https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/" target="_blank" rel="noopener noreferrer">石油備蓄の現況</a>等で確認してください。</p>
+
+  <h2 id="q5">投資・備蓄・防災の判断に使っていいですか？</h2>
+  <p><strong>推奨しません。</strong>モデルは意図的に単純化しており、実需給・政策・市場価格を反映しきれません。医療・投資・契約・防災計画など、実生活・事業上の重要な判断の根拠にしないでください。</p>
+
+  <h2 id="q6">アクセス解析はありますか？</h2>
+  <p>リポジトリ内の <code>analytics.js</code> に Google アナリティクス 4 の測定IDが設定されている場合のみ送信されます。未設定なら送信されません。詳細はプライバシーポリシーをご覧ください。</p>
+
+  <div class="toc guide-related">
+    <strong>関連ガイド</strong>
+    <ul>
+      <li><a href="oil-reserve-basics.html">石油備蓄の基礎</a></li>
+      <li><a href="how-days-calculated.html">試算モデル</a></li>
+      <li><a href="index.html">ガイド一覧</a></li>
+    </ul>
+  </div>
+
+  <p><a href="../privacy-policy.html">プライバシーポリシー・免責・利用規約（全文）</a></p>
+</div>
+
+<script src="../analytics.js"></script>
+</body>
+</html>

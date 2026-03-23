@@ -69,6 +69,12 @@ python3 -m http.server 8080
 2. `analytics.js` 内の `GA_MEASUREMENT_ID` にその ID を貼り付けてコミット・push する。
 3. 空のままでは **送信されない**（開発中は未設定のままでも可）。
 
+## SEO・ガイド記事
+
+- [guide/index.html](guide/index.html) … 石油備蓄関連の読み物（内部リンク用ハブ）
+- デプロイ後、Search Console に **`sitemap.xml`** を登録するとクロールしやすくなります（`https://gontarobee.github.io/oil/sitemap.xml`）
+- **`robots.txt`** でサイトマップの場所を案内しています
+
 ## プライバシー
 
 [プライバシーポリシー](privacy-policy.html) を参照してください（GA4 の記載あり）。
