@@ -54,6 +54,28 @@
     <div class="depletion-date" id="depletionDate"></div>
   </div>
 
+  <!-- Scenarios -->
+  <div class="controls-section">
+    <div class="controls-title">もしこうなったら？</div>
+
+    <div class="scenario-buttons">
+      <button class="scenario-btn active" onclick="setScenario('full', this)">
+        <span class="btn-title">完全輸入停止</span>
+        <span class="btn-desc">全ての石油輸入がゼロになった場合。<br>備蓄だけで生活する最悪のシナリオ。</span>
+      </button>
+      <button class="scenario-btn" onclick="setScenario('hormuz', this)">
+        <span class="btn-title">ホルムズ海峡封鎖</span>
+        <span class="btn-desc">中東からの輸入（全体の87%）が停止。<br>米国・東南アジアからの輸入は継続。</span>
+      </button>
+      <button class="scenario-btn" onclick="setScenario('half', this)">
+        <span class="btn-title">輸入半減</span>
+        <span class="btn-desc">何らかの理由で輸入量が半分に。<br>国民も5%の節約に協力した場合。</span>
+      </button>
+    </div>
+
+    <div class="scenario-result" id="scenarioResult"></div>
+  </div>
+
   <!-- Oil gauge -->
   <div class="gauge-section">
     <div class="gauge-container">
@@ -87,28 +109,6 @@
       <div class="card-value">30<span class="card-unit">日分</span></div>
       <div class="card-label">国家備蓄放出（3月下旬〜）</div>
     </div>
-  </div>
-
-  <!-- Scenarios -->
-  <div class="controls-section">
-    <div class="controls-title">もしこうなったら？</div>
-
-    <div class="scenario-buttons">
-      <button class="scenario-btn active" onclick="setScenario('full', this)">
-        <span class="btn-title">完全輸入停止</span>
-        <span class="btn-desc">全ての石油輸入がゼロになった場合。<br>備蓄だけで生活する最悪のシナリオ。</span>
-      </button>
-      <button class="scenario-btn" onclick="setScenario('hormuz', this)">
-        <span class="btn-title">ホルムズ海峡封鎖</span>
-        <span class="btn-desc">中東からの輸入（全体の87%）が停止。<br>米国・東南アジアからの輸入は継続。</span>
-      </button>
-      <button class="scenario-btn" onclick="setScenario('half', this)">
-        <span class="btn-title">輸入半減</span>
-        <span class="btn-desc">何らかの理由で輸入量が半分に。<br>国民も5%の節約に協力した場合。</span>
-      </button>
-    </div>
-
-    <div class="scenario-result" id="scenarioResult"></div>
   </div>
 
   <!-- Source -->
