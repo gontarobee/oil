@@ -95,8 +95,22 @@ python3 -m http.server 8080
 ## SEO・ガイド記事
 
 - [guide/index.html](guide/index.html) … 石油備蓄関連の読み物（内部リンク用ハブ）
-- デプロイ後、Search Console に **`sitemap.xml`** を登録するとクロールしやすくなります（`https://gontarobee.github.io/oil/sitemap.xml`）
+- デプロイ後、Search Console にサイトマップを登録するとクロールしやすくなります
 - **`robots.txt`** でサイトマップの場所を案内しています
+
+### Search Console で「取得できませんでした」になるとき
+
+1. **送信するURLは必ずフルパス**にする（プロジェクトサイトなので `/oil/` が要る）  
+   **正:** `https://gontarobee.github.io/oil/sitemap.xml`  
+   **誤:** `https://gontarobee.github.io/sitemap.xml`（こちらは 404 になりがち）
+2. Search Console のプロパティは **URLプレフィックス** で  
+   `https://gontarobee.github.io/oil/`  
+   としているか確認する（`github.io` 直下だけだとサイトマップのパスと一致しない）。
+3. ブラウザの**シークレット**で  
+   `https://gontarobee.github.io/oil/sitemap.xml`  
+   を開き、XML がそのまま表示されるか確認（表示されなければ未デプロイ or Pages 設定の問題）。
+4. `main` に `sitemap.xml` が入った状態で **GitHub Actions のデプロイ成功**を確認。
+5. 送信直後は「不明」「取得できません」が出ても、**数日待つ**と読み込まれることがある。古い送信は削除して、正しいフルURLで再送信してよい。
 
 ## プライバシー
 
