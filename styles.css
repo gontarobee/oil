@@ -425,6 +425,97 @@ body {
   text-shadow: 0 0 30px rgba(255,215,0,0.5);
 }
 
+/* ── Hamburger nav ── */
+.hamburger-nav { position: fixed; top: 0; left: 0; z-index: 9999; }
+
+.hamburger-btn {
+  position: fixed; top: 14px; left: 14px; z-index: 10001;
+  width: 44px; height: 44px;
+  background: rgba(20, 20, 40, 0.85);
+  border: 1px solid rgba(255, 140, 0, 0.35);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 5px;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.hamburger-btn span {
+  display: block; width: 22px; height: 2px;
+  background: var(--amber);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.hamburger-nav.open .hamburger-btn span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger-nav.open .hamburger-btn span:nth-child(2) { opacity: 0; }
+.hamburger-nav.open .hamburger-btn span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.hamburger-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 9999;
+}
+.hamburger-nav.open .hamburger-overlay {
+  opacity: 1; visibility: visible;
+}
+
+.hamburger-drawer {
+  position: fixed; top: 0; left: 0;
+  width: min(280px, 80vw); height: 100dvh;
+  background: #12121e;
+  border-right: 1px solid rgba(255, 140, 0, 0.25);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 10000;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 70px 0 2rem;
+}
+.hamburger-nav.open .hamburger-drawer {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  padding: 0 1.25rem 0.75rem;
+  font-size: 0.8rem;
+  color: #8890a8;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hamburger-drawer ul {
+  list-style: none; margin: 0; padding: 0;
+}
+.hamburger-drawer li a {
+  display: block;
+  padding: 0.7rem 1.25rem;
+  color: #d0d4e0;
+  text-decoration: none;
+  font-size: 0.92rem;
+  border-left: 3px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+.hamburger-drawer li a:hover,
+.hamburger-drawer li a:focus-visible {
+  background: rgba(255, 140, 0, 0.1);
+  border-left-color: var(--amber);
+  color: #fff;
+}
+.drawer-divider {
+  padding: 1rem 1.25rem 0.4rem;
+  font-size: 0.75rem;
+  color: #6a708a;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: 0.3rem;
+}
+
 /* ── Legal / privacy-policy.html ── */
 .legal-page {
   max-width: 720px;
