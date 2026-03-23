@@ -30,20 +30,24 @@ git push -u origin main
 ※ すでに `git init` 済みなら、`git remote add origin …` と `git push -u origin main` だけでOKです。  
 ※ リモートは GitHub 上の **Code** ボタンに表示される URL をそのまま使っても構いません。
 
-### 3. GitHub Pages を有効にする
+### 3. GitHub Pages を有効にする（GitHub Actions）
 
-1. GitHub のリポジトリページ → **Settings**
-2. 左メニュー **Pages**
-3. **Build and deployment** の **Source** で **Deploy from a branch** を選択
-4. **Branch** を `main` / **folder** を `/ (root)` にして **Save**
+リポジトリには **`.github/workflows/pages.yml`** があります。次の順で設定します。
 
-数分待つと、次のURLで公開されます:
+1. この変更を **`main` に push** する（ワークフローファイルがリポジトリに入っていること）
+2. GitHub のリポジトリ → **Settings** → **Pages**
+3. **Build and deployment** の **Source** で **GitHub Actions** を選ぶ  
+   （**Deploy from a branch** のままだと、Actions 用のデプロイと食い違い **404** になることがあります）
+4. **Actions** タブを開き、**Deploy GitHub Pages** が **緑（成功）** になるまで待つ
+
+公開URL:
 
 **https://gontarobee.github.io/oil/**
 
 ### 4. うまく表示されないとき
 
-- **Actions** タブでエラーがないか確認（Actions を使う設定にした場合）
+- **Settings → Pages** の **Source** が **GitHub Actions** になっているか確認
+- **Actions** で **Deploy GitHub Pages** が失敗していないかログを確認
 - ブラウザのキャッシュを消すか、シークレットウィンドウで開き直す
 - 初回は反映まで **1〜10分** かかることがあります
 
