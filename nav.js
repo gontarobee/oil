@@ -12,7 +12,7 @@
       '</button>' +
     '</div>' +
     '<nav class="nav-menu">' +
-      '<a href="' + p + 'index.html">トップ</a>' +
+      '<a class="nav-menu-primary" href="' + p + 'index.html">カウンター（トップ）</a>' +
       '<a href="' + p + 'guide/index.html">ガイド一覧</a>' +
       '<a href="' + p + 'guide/oil-reserve-basics.html">備蓄とは</a>' +
       '<a href="' + p + 'guide/how-days-calculated.html">日数の計算</a>' +

@@ -497,6 +497,15 @@ body {
   transition: background 0.15s, color 0.15s;
 }
 .nav-menu a:last-child { border-bottom: none; }
+.nav-menu a.nav-menu-primary {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e8eaf0;
+}
+.nav-menu a.nav-menu-primary:hover,
+.nav-menu a.nav-menu-primary:focus-visible {
+  color: #fff;
+}
 .nav-menu a:hover,
 .nav-menu a:focus-visible {
   background: rgba(255, 140, 0, 0.1);
