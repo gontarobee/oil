@@ -1,5 +1,5 @@
 const RESERVE_DAYS = 241;
-const RESERVE_CAPACITY = 254;
+const RESERVE_CAPACITY = 241;
 const REFERENCE = new Date('2026-03-23T00:00:00');
 
 const SCENARIOS = {
