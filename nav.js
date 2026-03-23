@@ -1,51 +1,44 @@
 (function () {
   var isGuide = location.pathname.indexOf('/guide') !== -1;
-  var prefix = isGuide ? '../' : '';
+  var p = isGuide ? '../' : '';
 
-  var nav = document.createElement('nav');
-  nav.className = 'hamburger-nav';
-  nav.innerHTML =
-    '<button class="hamburger-btn" aria-label="メニュー" aria-expanded="false">' +
-      '<span></span><span></span><span></span>' +
-    '</button>' +
-    '<div class="hamburger-overlay"></div>' +
-    '<div class="hamburger-drawer">' +
-      '<div class="drawer-header">メニュー</div>' +
-      '<ul>' +
-        '<li><a href="' + prefix + 'index.html">枯渇カウンター（トップ）</a></li>' +
-        '<li class="drawer-divider">読み物・ガイド</li>' +
-        '<li><a href="' + prefix + 'guide/index.html">ガイド一覧</a></li>' +
-        '<li><a href="' + prefix + 'guide/oil-reserve-basics.html">石油備蓄とは？</a></li>' +
-        '<li><a href="' + prefix + 'guide/how-days-calculated.html">「〇〇日」の計算</a></li>' +
-        '<li><a href="' + prefix + 'guide/hormuz-japan-imports.html">ホルムズ海峡と輸入</a></li>' +
-        '<li><a href="' + prefix + 'guide/international-comparison.html">国際比較・IEA</a></li>' +
-        '<li><a href="' + prefix + 'guide/emergency-release-overview.html">緊急時の備蓄</a></li>' +
-        '<li><a href="' + prefix + 'guide/faq.html">FAQ・注意事項</a></li>' +
-        '<li class="drawer-divider">その他</li>' +
-        '<li><a href="' + prefix + 'privacy-policy.html">プライバシーポリシー</a></li>' +
-      '</ul>' +
-    '</div>';
+  var header = document.createElement('header');
+  header.className = 'site-nav';
+  header.innerHTML =
+    '<div class="site-nav-inner">' +
+      '<a class="site-nav-title" href="' + p + 'index.html">石油備蓄カウンター</a>' +
+      '<button class="nav-toggle" aria-label="メニュー" aria-expanded="false">' +
+        '<span></span><span></span><span></span>' +
+      '</button>' +
+    '</div>' +
+    '<nav class="nav-menu">' +
+      '<a href="' + p + 'index.html">トップ</a>' +
+      '<a href="' + p + 'guide/index.html">ガイド一覧</a>' +
+      '<a href="' + p + 'guide/oil-reserve-basics.html">備蓄とは</a>' +
+      '<a href="' + p + 'guide/how-days-calculated.html">日数の計算</a>' +
+      '<a href="' + p + 'guide/hormuz-japan-imports.html">ホルムズ海峡</a>' +
+      '<a href="' + p + 'guide/international-comparison.html">国際比較</a>' +
+      '<a href="' + p + 'guide/emergency-release-overview.html">緊急時の備蓄</a>' +
+      '<a href="' + p + 'guide/faq.html">FAQ</a>' +
+      '<a href="' + p + 'privacy-policy.html">プライバシーポリシー</a>' +
+    '</nav>';
 
-  document.body.insertBefore(nav, document.body.firstChild);
+  document.body.insertBefore(header, document.body.firstChild);
 
-  var btn = nav.querySelector('.hamburger-btn');
-  var drawer = nav.querySelector('.hamburger-drawer');
-  var overlay = nav.querySelector('.hamburger-overlay');
+  var btn = header.querySelector('.nav-toggle');
+  var menu = header.querySelector('.nav-menu');
 
   function toggle() {
-    var open = nav.classList.toggle('open');
+    var open = header.classList.toggle('open');
     btn.setAttribute('aria-expanded', open);
-    document.body.style.overflow = open ? 'hidden' : '';
   }
   function close() {
-    nav.classList.remove('open');
+    header.classList.remove('open');
     btn.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
   }
 
   btn.addEventListener('click', toggle);
-  overlay.addEventListener('click', close);
-  drawer.addEventListener('click', function (e) {
+  menu.addEventListener('click', function (e) {
     if (e.target.tagName === 'A') close();
   });
   document.addEventListener('keydown', function (e) {
