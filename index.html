@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本石油備蓄枯渇カウンター</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="stars"></div>
+<div class="stars2"></div>
+<div class="stars3"></div>
+
+<div class="container">
+  <!-- Narration -->
+  <div class="narration">
+    <div class="era">西暦 2026年</div>
+    <p>
+      ホルムズ海峡の封鎖により<br>
+      日本のエネルギー供給は危機に瀕してる。<br>
+      石油備蓄の枯渇まで、残された時間は——
+    </p>
+  </div>
+
+  <!-- Countdown -->
+  <div class="countdown-section" id="countdownSection">
+    <div class="countdown-label">
+      <span class="highlight warning-pulse">石油枯渇</span>まで あと
+    </div>
+    <div class="countdown-display" id="countdownDisplay">
+      <div class="countdown-days-row">
+        <div class="countdown-number days" id="daysNum">---</div>
+        <div class="countdown-unit days-unit">日と</div>
+      </div>
+      <div class="countdown-time-row">
+        <div class="countdown-number time" id="hoursNum">--</div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-number time" id="minsNum">--</div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-number time" id="secsNum">--</div>
+      </div>
+    </div>
+    <div class="depletion-date" id="depletionDate"></div>
+  </div>
+
+  <!-- Oil gauge -->
+  <div class="gauge-section">
+    <div class="gauge-container">
+      <div class="gauge-title">備蓄残量</div>
+      <div class="gauge-bar-wrapper">
+        <div class="gauge-bar" id="gaugeBar" style="width:90%"></div>
+        <div class="gauge-percent" id="gaugePercent">--%</div>
+      </div>
+      <div class="gauge-labels">
+        <span>0日</span>
+        <span>254日 (2025年12月末)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data cards -->
+  <div class="data-grid">
+    <div class="data-card">
+      <div class="card-value">241<span class="card-unit">日分</span></div>
+      <div class="card-label">総備蓄量（2026年3月23日時点）</div>
+    </div>
+    <div class="data-card">
+      <div class="card-value">45<span class="card-unit">日分</span></div>
+      <div class="card-label">放出決定量（過去最大）</div>
+    </div>
+    <div class="data-card">
+      <div class="card-value">15<span class="card-unit">日分</span></div>
+      <div class="card-label">民間備蓄放出（3/16〜）</div>
+    </div>
+    <div class="data-card">
+      <div class="card-value">30<span class="card-unit">日分</span></div>
+      <div class="card-label">国家備蓄放出（3月下旬〜）</div>
+    </div>
+  </div>
+
+  <!-- Scenarios -->
+  <div class="controls-section">
+    <div class="controls-title">もしこうなったら？</div>
+
+    <div class="scenario-buttons">
+      <button class="scenario-btn active" onclick="setScenario('full', this)">
+        <span class="btn-title">完全輸入停止</span>
+        <span class="btn-desc">全ての石油輸入がゼロになった場合。<br>備蓄だけで生活する最悪のシナリオ。</span>
+      </button>
+      <button class="scenario-btn" onclick="setScenario('hormuz', this)">
+        <span class="btn-title">ホルムズ海峡封鎖</span>
+        <span class="btn-desc">中東からの輸入（全体の87%）が停止。<br>米国・東南アジアからの輸入は継続。</span>
+      </button>
+      <button class="scenario-btn" onclick="setScenario('half', this)">
+        <span class="btn-title">輸入半減</span>
+        <span class="btn-desc">何らかの理由で輸入量が半分に。<br>国民も5%の節約に協力した場合。</span>
+      </button>
+    </div>
+
+    <div class="scenario-result" id="scenarioResult"></div>
+  </div>
+
+  <!-- Source -->
+  <div class="source">
+    <strong>データ出典</strong><br>
+    基準値: 資源エネルギー庁「石油備蓄の現況」2025年12月末時点 総備蓄254日分<br>
+    （国家備蓄146日分 / 民間備蓄101日分 / 産油国共同備蓄7日分）<br>
+    <a href="https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/" target="_blank">
+      https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/
+    </a><br><br>
+    直近値: 3月14日時点 242日分（資源エネルギー庁推計値・みんかぶ報道）<br>
+    本カウンターの起算値: 3月23日時点 <strong>241日分</strong>（報道ベース）<br><br>
+    備蓄放出: 3/16〜 民間15日分放出開始 / 3月下旬〜 国家備蓄30日分追加放出予定<br>
+    合計45日分・約8,000万バレル（IEA加盟国協調放出の一部、日米で全体の約6割）<br><br>
+    ※ 本カウンターは「備蓄日数 ÷ 1日あたりの不足率」で枯渇日を試算する簡易モデルです。<br>
+    実際の備蓄消費は需要抑制・代替調達・製油所稼働状況等により変動します。
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

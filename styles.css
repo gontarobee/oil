@@ -1,0 +1,426 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Orbitron:wght@400;700;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red: #ff2020;
+  --amber: #ff8c00;
+  --gold: #ffd700;
+  --dark: #0a0a12;
+  --panel-bg: rgba(20, 20, 40, 0.85);
+}
+
+body {
+  background: var(--dark);
+  color: #e0e0e0;
+  font-family: 'Noto Sans JP', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ── Star field ── */
+.stars, .stars2, .stars3 {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.stars  { background: transparent; }
+.stars::after, .stars2::after, .stars3::after {
+  content: '';
+  position: absolute;
+  top: -100%; left: 0;
+  width: 100%; height: 200%;
+  animation: starsMove linear infinite;
+}
+.stars::after {
+  width: 1px; height: 1px;
+  box-shadow:
+    50px 30px #fff, 150px 80px #fff, 300px 50px #fff, 450px 120px #fff,
+    600px 40px #fff, 80px 200px #fff, 200px 300px #fff, 400px 250px #fff,
+    550px 350px #fff, 700px 180px #fff, 100px 450px #fff, 350px 500px #fff,
+    500px 420px #fff, 650px 550px #fff, 750px 300px #fff, 50px 600px #fff,
+    250px 650px #fff, 450px 600px #fff, 180px 150px #fff, 520px 480px #fff,
+    670px 100px #fff, 320px 380px #fff, 90px 520px #fff, 780px 450px #fff,
+    420px 70px #fff, 160px 700px #fff, 580px 200px #fff, 30px 350px #fff,
+    700px 620px #fff, 380px 150px #fff, 220px 480px #fff, 610px 310px #fff;
+  animation-duration: 80s;
+}
+.stars2::after {
+  width: 2px; height: 2px;
+  box-shadow:
+    120px 50px rgba(255,255,255,0.8), 340px 180px rgba(255,255,255,0.8),
+    560px 90px rgba(255,255,255,0.8), 200px 400px rgba(255,255,255,0.8),
+    480px 300px rgba(255,255,255,0.8), 680px 500px rgba(255,255,255,0.8),
+    80px 350px rgba(255,255,255,0.8), 400px 450px rgba(255,255,255,0.8),
+    260px 550px rgba(255,255,255,0.8), 600px 650px rgba(255,255,255,0.8),
+    720px 200px rgba(255,255,255,0.8), 160px 100px rgba(255,255,255,0.8),
+    500px 550px rgba(255,255,255,0.8), 350px 650px rgba(255,255,255,0.8);
+  animation-duration: 120s;
+}
+.stars3::after {
+  width: 3px; height: 3px;
+  box-shadow:
+    250px 100px rgba(255,200,100,0.6), 500px 350px rgba(255,200,100,0.6),
+    100px 500px rgba(255,200,100,0.6), 650px 250px rgba(255,200,100,0.6),
+    400px 600px rgba(255,200,100,0.6), 750px 450px rgba(255,200,100,0.6);
+  animation-duration: 160s;
+}
+@keyframes starsMove {
+  from { transform: translateY(0); }
+  to   { transform: translateY(50%); }
+}
+
+/* ── Layout ── */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+/* ── Narration ── */
+.narration {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeInUp 2s ease-out;
+}
+.narration .era {
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.5em;
+  margin-bottom: 12px;
+}
+.narration p {
+  font-size: 1.05rem;
+  line-height: 2;
+  color: #b0b8cc;
+  letter-spacing: 0.15em;
+}
+
+/* ── Main countdown ── */
+.countdown-section {
+  text-align: center;
+  margin-bottom: 48px;
+  animation: fadeInUp 2.5s ease-out;
+}
+.countdown-label {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #c0c8dd;
+  letter-spacing: 0.3em;
+  margin-bottom: 8px;
+}
+.countdown-label .highlight {
+  color: var(--red);
+  text-shadow: 0 0 20px rgba(255, 32, 32, 0.6);
+}
+.countdown-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 16px 0;
+}
+.countdown-days-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+}
+.countdown-time-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+.countdown-number {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  color: var(--red);
+  text-shadow:
+    0 0 30px rgba(255, 32, 32, 0.7),
+    0 0 60px rgba(255, 32, 32, 0.3);
+  line-height: 1;
+  text-align: center;
+}
+.countdown-number.days {
+  font-size: 8rem;
+}
+.countdown-number.time {
+  font-size: 3rem;
+  min-width: 2ch;
+}
+.countdown-unit {
+  font-size: 1rem;
+  color: var(--amber);
+  letter-spacing: 0.2em;
+}
+.days-unit {
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+}
+.countdown-separator {
+  font-family: 'Orbitron', monospace;
+  font-size: 2.5rem;
+  color: var(--amber);
+  padding: 0 2px;
+  animation: blink 1s infinite;
+}
+
+.depletion-date {
+  font-size: 1.15rem;
+  color: var(--amber);
+  margin-top: 8px;
+  letter-spacing: 0.15em;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+/* ── Oil gauge ── */
+.gauge-section {
+  margin-bottom: 48px;
+  animation: fadeInUp 3s ease-out;
+}
+.gauge-container {
+  background: var(--panel-bg);
+  border: 1px solid rgba(255, 140, 0, 0.3);
+  border-radius: 12px;
+  padding: 24px;
+}
+.gauge-title {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  margin-bottom: 16px;
+}
+.gauge-bar-wrapper {
+  position: relative;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 140, 0, 0.2);
+}
+.gauge-bar {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 1s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+.gauge-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 200%; height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  animation: shimmer 3s infinite;
+}
+@keyframes shimmer {
+  from { transform: translateX(0); }
+  to   { transform: translateX(50%); }
+}
+.gauge-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #8890a8;
+}
+.gauge-percent {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  z-index: 2;
+}
+
+/* ── Data cards ── */
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+  animation: fadeInUp 3.5s ease-out;
+}
+.data-card {
+  background: var(--panel-bg);
+  border: 1px solid rgba(255, 140, 0, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.data-card:hover {
+  border-color: var(--amber);
+  transform: translateY(-2px);
+}
+.data-card .card-value {
+  font-family: 'Orbitron', monospace;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--amber);
+  text-shadow: 0 0 15px rgba(255, 140, 0, 0.4);
+}
+.data-card .card-unit {
+  font-size: 1rem;
+  color: var(--amber);
+}
+.data-card .card-label {
+  font-size: 0.85rem;
+  color: #8890a8;
+  margin-top: 6px;
+  letter-spacing: 0.1em;
+}
+
+/* ── Controls ── */
+.controls-section {
+  background: var(--panel-bg);
+  border: 1px solid rgba(255, 140, 0, 0.2);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 48px;
+  animation: fadeInUp 4s ease-out;
+}
+.controls-title {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+}
+.scenario-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.scenario-btn {
+  background: rgba(255, 140, 0, 0.08);
+  border: 1px solid rgba(255, 140, 0, 0.3);
+  color: var(--gold);
+  padding: 16px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  transition: all 0.3s;
+  text-align: left;
+  flex: 1;
+  min-width: 250px;
+}
+.scenario-btn:hover {
+  background: rgba(255, 140, 0, 0.15);
+  border-color: rgba(255, 140, 0, 0.5);
+}
+.scenario-btn.active {
+  background: rgba(255, 140, 0, 0.25);
+  border-color: var(--amber);
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.25);
+}
+.scenario-btn .btn-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 6px;
+}
+.scenario-btn .btn-desc {
+  font-size: 0.8rem;
+  color: #8890a8;
+  display: block;
+  line-height: 1.5;
+}
+.scenario-btn.active .btn-desc {
+  color: #b0b8cc;
+}
+.scenario-result {
+  text-align: center;
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 140, 0, 0.15);
+}
+.scenario-result .result-text {
+  font-size: 0.95rem;
+  color: #b0b8cc;
+  line-height: 1.8;
+}
+.scenario-result .result-text strong {
+  color: var(--amber);
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+}
+
+/* ── Source ── */
+.source {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #555;
+  line-height: 1.8;
+  animation: fadeInUp 4.5s ease-out;
+}
+.source a {
+  color: #667;
+  text-decoration: none;
+}
+.source a:hover {
+  color: var(--amber);
+}
+
+/* ── Warning pulse ── */
+.warning-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .countdown-number.days { font-size: 5rem; }
+  .countdown-number.time { font-size: 2rem; }
+  .countdown-separator { font-size: 1.8rem; }
+  .days-unit { font-size: 1.5rem; }
+  .countdown-label { font-size: 1.2rem; }
+  .data-card .card-value { font-size: 1.7rem; }
+  .scenario-btn { min-width: 100%; }
+}
+
+/* ── Danger level colors ── */
+.danger-high .countdown-number {
+  color: var(--red);
+  text-shadow: 0 0 30px rgba(255,32,32,0.7), 0 0 60px rgba(255,32,32,0.3);
+}
+.danger-mid .countdown-number {
+  color: var(--amber);
+  text-shadow: 0 0 30px rgba(255,140,0,0.7), 0 0 60px rgba(255,140,0,0.3);
+}
+.danger-low .countdown-number {
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(255,215,0,0.5);
+}
