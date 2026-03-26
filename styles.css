@@ -420,27 +420,30 @@ body {
   margin: 0 auto;
 }
 .reserve-chart-grid {
-  stroke: rgba(255, 255, 255, 0.06);
+  /* 線色は reserve-chart.js で stroke 属性指定（フォールバック） */
+  stroke: rgba(255, 255, 255, 0.14);
   stroke-width: 1;
 }
 .reserve-chart-line {
-  stroke: var(--amber);
-  stroke-width: 2.5;
+  stroke: #ff8c00;
+  stroke-width: 2.75;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 6px rgba(255, 140, 0, 0.35));
+  fill: none;
+  filter: drop-shadow(0 0 8px rgba(255, 140, 0, 0.45));
 }
 .reserve-chart-point {
-  fill: var(--dark);
-  stroke: var(--amber);
+  fill: #1a1528;
+  stroke: #ffb84d;
   stroke-width: 2;
   cursor: pointer;
-  transition: r 0.15s ease, fill 0.15s ease;
+  transition: fill 0.15s ease, stroke-width 0.15s ease;
 }
 .reserve-chart-point:hover,
 .reserve-chart-point:focus {
   outline: none;
   fill: rgba(255, 140, 0, 0.35);
+  stroke: #ffcc66;
   stroke-width: 2.5;
 }
 .reserve-chart-ytick {

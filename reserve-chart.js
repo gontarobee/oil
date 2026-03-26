@@ -2,6 +2,13 @@
  * 資源エネルギー庁「石油備蓄の状況（推計値の速報）」PDF の表に基づく時系列。
  * 更新時は pl001 の最新 PDF を確認し、本配列を差し替えてください。
  */
+/** SVG は UA/CSS によって stroke が効かず黒塗りになることがあるため、主要な色は属性でも指定する */
+const CHART_LINE_STROKE = '#ff8c00';
+const CHART_LINE_WIDTH = 2.75;
+const CHART_GRID_STROKE = 'rgba(255,255,255,0.14)';
+const CHART_POINT_FILL = '#1a1528';
+const CHART_POINT_STROKE = '#ffb84d';
+
 const RESERVE_HISTORY = [
   { published: '2026-03-17', asOf: '2026-03-14', national: 146, private: 90, joint: 6, total: 242 },
   { published: '2026-03-18', asOf: '2026-03-15', national: 146, private: 89, joint: 6, total: 241 },
@@ -65,7 +72,7 @@ function buildChart() {
   for (let t = 0; t <= yTicks; t++) {
     const v = yMin + (t / yTicks) * (yMax - yMin);
     const y = yAt(v);
-    gridAndY += `<line class="reserve-chart-grid" x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" />`;
+    gridAndY += `<line class="reserve-chart-grid" x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" stroke="${CHART_GRID_STROKE}" stroke-width="1" />`;
     gridAndY += `<text class="reserve-chart-ytick" x="${padL - 8}" y="${y + 4}">${Math.round(v)}</text>`;
   }
 
@@ -77,7 +84,7 @@ function buildChart() {
   let circles = '';
   points.forEach((p) => {
     const title = `公表: ${formatJaDate(p.row.published)} / データ時点: ${formatJaDate(p.row.asOf)} / 合計 ${p.row.total}日分（国${p.row.national}・民${p.row.private}・産油国${p.row.joint}）`;
-    circles += `<circle class="reserve-chart-point" role="button" tabindex="0" cx="${p.x}" cy="${p.y}" r="6" data-i="${p.i}">
+    circles += `<circle class="reserve-chart-point" role="button" tabindex="0" cx="${p.x}" cy="${p.y}" r="6" data-i="${p.i}" fill="${CHART_POINT_FILL}" stroke="${CHART_POINT_STROKE}" stroke-width="2">
       <title>${title}</title>
     </circle>`;
   });
@@ -86,7 +93,7 @@ function buildChart() {
     <svg class="reserve-chart-svg" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" aria-label="備蓄日数合計の推移">
       ${gridAndY}
       <text class="reserve-chart-axis-label" x="${(padL + W - padR) / 2}" y="${H - 4}" text-anchor="middle">データ時点（月/日）</text>
-      ${pathD ? `<path class="reserve-chart-line" d="${pathD}" fill="none" />` : ''}
+      ${pathD ? `<path class="reserve-chart-line" d="${pathD}" fill="none" stroke="${CHART_LINE_STROKE}" stroke-width="${CHART_LINE_WIDTH}" stroke-linecap="round" stroke-linejoin="round" />` : ''}
       ${circles}
       ${xLabels}
     </svg>
