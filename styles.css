@@ -398,6 +398,14 @@ body {
 .reserve-chart-lead strong {
   color: #c8d0e4;
 }
+.reserve-chart-lead a {
+  color: var(--amber);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.reserve-chart-lead a:hover {
+  color: var(--gold);
+}
 .reserve-chart-note {
   display: block;
   margin-top: 8px;
