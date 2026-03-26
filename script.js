@@ -1,15 +1,15 @@
 // 備蓄日数: 毎日 https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/
 // の「石油備蓄の状況（推計値の速報）はこちら」PDFを見て RESERVE_DAYS 等を更新（README参照）
-const RESERVE_DAYS = 240;
-const RESERVE_CAPACITY = 240;
-const REFERENCE = new Date('2026-03-24T00:00:00');
+const RESERVE_DAYS = 239;
+const RESERVE_CAPACITY = 239;
+const REFERENCE = new Date('2026-03-26T00:00:00');
 
 const SCENARIOS = {
   full: {
     importLoss: 1.0,
     saving: 0,
     label: '完全輸入停止',
-    explain: '石油の輸入が完全にゼロ。備蓄240日分だけが頼り。'
+    explain: '石油の輸入が完全にゼロ。備蓄239日分だけが頼り。'
   },
   hormuz: {
     importLoss: 0.87,
