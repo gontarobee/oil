@@ -6,7 +6,7 @@
   header.className = 'site-nav';
   header.innerHTML =
     '<div class="site-nav-inner">' +
-      '<a class="site-nav-title" href="' + p + 'index.html">石油備蓄カウンター</a>' +
+      '<a class="site-nav-title" href="' + p + 'index.html">日本石油備蓄枯渇カウンター</a>' +
       '<button class="nav-toggle" aria-label="メニュー" aria-expanded="false">' +
         '<span></span><span></span><span></span>' +
       '</button>' +
