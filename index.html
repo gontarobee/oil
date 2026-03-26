@@ -111,6 +111,34 @@
     </div>
   </div>
 
+  <!-- Reserve history chart (PDF 速報の表に基づく) -->
+  <section class="reserve-chart-section" aria-labelledby="reserve-chart-title">
+    <h2 id="reserve-chart-title" class="reserve-chart-title">備蓄日数の推移（合計）</h2>
+    <p class="reserve-chart-lead">
+      資源エネルギー庁「石油備蓄の状況（推計値の速報）」の表に基づき、<strong>データ時点</strong>を横軸にした折れ線です。縦軸は<strong>合計日分</strong>。<span class="reserve-chart-note">速報値は確報と差が出る場合があります（PDF参照）。</span>
+    </p>
+    <div class="reserve-chart-wrap" id="reserveChartWrap"></div>
+    <p class="reserve-chart-hint" id="chartHint">グラフの点にマウスを当てると、公表日・データ時点・内訳が表示されます。</p>
+    <details class="reserve-chart-details">
+      <summary>数値一覧（公表日・データ時点・内訳）</summary>
+      <div class="reserve-chart-table-wrap">
+        <table class="reserve-chart-table">
+          <thead>
+            <tr>
+              <th>公表日</th>
+              <th>データ時点</th>
+              <th>国家（日分）</th>
+              <th>民間（日分）</th>
+              <th>産油国（日分）</th>
+              <th>合計（日分）</th>
+            </tr>
+          </thead>
+          <tbody id="reserveHistoryBody"></tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
   <!-- Source -->
   <div class="source">
     <strong>データ出典</strong><br>
@@ -136,5 +164,6 @@
 <script src="nav.js"></script>
 <script src="analytics.js"></script>
 <script src="script.js"></script>
+<script src="reserve-chart.js"></script>
 </body>
 </html>

@@ -1,0 +1,134 @@
+/**
+ * 資源エネルギー庁「石油備蓄の状況（推計値の速報）」PDF の表に基づく時系列。
+ * 更新時は pl001 の最新 PDF を確認し、本配列を差し替えてください。
+ */
+const RESERVE_HISTORY = [
+  { published: '2026-03-17', asOf: '2026-03-14', national: 146, private: 90, joint: 6, total: 242 },
+  { published: '2026-03-18', asOf: '2026-03-15', national: 146, private: 89, joint: 6, total: 241 },
+  { published: '2026-03-19', asOf: '2026-03-16', national: 146, private: 89, joint: 6, total: 241 },
+  { published: '2026-03-20', asOf: '2026-03-17', national: 146, private: 90, joint: 6, total: 242 },
+  { published: '2026-03-21', asOf: '2026-03-18', national: 146, private: 92, joint: 6, total: 244 },
+  { published: '2026-03-22', asOf: '2026-03-19', national: 146, private: 90, joint: 6, total: 242 },
+  { published: '2026-03-23', asOf: '2026-03-20', national: 146, private: 89, joint: 6, total: 241 },
+  { published: '2026-03-24', asOf: '2026-03-21', national: 146, private: 88, joint: 6, total: 240 },
+  { published: '2026-03-25', asOf: '2026-03-22', national: 146, private: 86, joint: 6, total: 238 },
+  { published: '2026-03-26', asOf: '2026-03-23', national: 146, private: 87, joint: 6, total: 239 },
+];
+
+function formatMd(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${m}/${d}`;
+}
+
+function formatJaDate(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${y}年${m}月${d}日`;
+}
+
+function buildChart() {
+  const wrap = document.getElementById('reserveChartWrap');
+  const hint = document.getElementById('chartHint');
+  const tbody = document.getElementById('reserveHistoryBody');
+  if (!wrap || !tbody) return;
+
+  const data = RESERVE_HISTORY;
+  const vals = data.map((r) => r.total);
+  const yMin = Math.min(...vals) - 2;
+  const yMax = Math.max(...vals) + 2;
+
+  const W = 720;
+  const H = 260;
+  const padL = 44;
+  const padR = 16;
+  const padT = 16;
+  const padB = 52;
+  const plotW = W - padL - padR;
+  const plotH = H - padT - padB;
+  const n = data.length;
+
+  const xAt = (i) => padL + (n === 1 ? plotW / 2 : (i / (n - 1)) * plotW);
+  const yAt = (v) => padT + (1 - (v - yMin) / (yMax - yMin)) * plotH;
+
+  const points = data.map((row, i) => ({
+    x: xAt(i),
+    y: yAt(row.total),
+    row,
+    i,
+  }));
+
+  const pathD = points
+    .map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`)
+    .join(' ');
+
+  const yTicks = 4;
+  let gridAndY = '';
+  for (let t = 0; t <= yTicks; t++) {
+    const v = yMin + (t / yTicks) * (yMax - yMin);
+    const y = yAt(v);
+    gridAndY += `<line class="reserve-chart-grid" x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" />`;
+    gridAndY += `<text class="reserve-chart-ytick" x="${padL - 8}" y="${y + 4}">${Math.round(v)}</text>`;
+  }
+
+  let xLabels = '';
+  points.forEach((p) => {
+    xLabels += `<text class="reserve-chart-xtick" text-anchor="middle" x="${p.x}" y="${H - 20}">${formatMd(p.row.asOf)}</text>`;
+  });
+
+  let circles = '';
+  points.forEach((p) => {
+    const title = `公表: ${formatJaDate(p.row.published)} / データ時点: ${formatJaDate(p.row.asOf)} / 合計 ${p.row.total}日分（国${p.row.national}・民${p.row.private}・産油国${p.row.joint}）`;
+    circles += `<circle class="reserve-chart-point" role="button" tabindex="0" cx="${p.x}" cy="${p.y}" r="6" data-i="${p.i}">
+      <title>${title}</title>
+    </circle>`;
+  });
+
+  wrap.innerHTML = `
+    <svg class="reserve-chart-svg" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" aria-label="備蓄日数合計の推移">
+      ${gridAndY}
+      <text class="reserve-chart-axis-label" x="${(padL + W - padR) / 2}" y="${H - 4}" text-anchor="middle">データ時点（月/日）</text>
+      ${pathD ? `<path class="reserve-chart-line" d="${pathD}" fill="none" />` : ''}
+      ${circles}
+      ${xLabels}
+    </svg>
+  `;
+
+  tbody.innerHTML = data
+    .slice()
+    .reverse()
+    .map(
+      (r) =>
+        `<tr>
+          <td>${formatJaDate(r.published)}</td>
+          <td>${formatJaDate(r.asOf)}</td>
+          <td>${r.national}</td>
+          <td>${r.private}</td>
+          <td>${r.joint}</td>
+          <td><strong>${r.total}</strong></td>
+        </tr>`,
+    )
+    .join('');
+
+  wrap.querySelectorAll('.reserve-chart-point').forEach((el) => {
+    const i = Number(el.getAttribute('data-i'));
+    const row = data[i];
+    const text = `公表 ${formatJaDate(row.published)} ／ データ時点 ${formatJaDate(row.asOf)} ／ 合計 ${row.total}日分（国家${row.national}・民間${row.private}・産油国${row.joint}）`;
+    el.addEventListener('mouseenter', () => {
+      if (hint) hint.textContent = text;
+    });
+    el.addEventListener('mouseleave', () => {
+      if (hint) hint.textContent = 'グラフの点にマウスを当てると、公表日・データ時点・内訳が表示されます。';
+    });
+    el.addEventListener('focus', () => {
+      if (hint) hint.textContent = text;
+    });
+    el.addEventListener('blur', () => {
+      if (hint) hint.textContent = 'グラフの点にマウスを当てると、公表日・データ時点・内訳が表示されます。';
+    });
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', buildChart);
+} else {
+  buildChart();
+}
