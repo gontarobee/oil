@@ -2,7 +2,7 @@
 // の「石油備蓄の状況（推計値の速報）はこちら」PDFを見て RESERVE_DAYS 等を更新（README参照）
 const RESERVE_DAYS = 239;
 const RESERVE_CAPACITY = 239;
-const REFERENCE = new Date('2026-03-26T00:00:00');
+const REFERENCE = new Date('2026-03-27T00:00:00');
 
 const SCENARIOS = {
   full: {
