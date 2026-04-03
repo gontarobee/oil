@@ -24,6 +24,10 @@ const RESERVE_HISTORY = [
   { published: '2026-03-28', asOf: '2026-03-25', national: 146, private: 87, joint: 6, total: 239 },
   { published: '2026-03-29', asOf: '2026-03-26', national: 146, private: 87, joint: 6, total: 239 },
   { published: '2026-03-30', asOf: '2026-03-27', national: 146, private: 85, joint: 6, total: 237 },
+  { published: '2026-03-31', asOf: '2026-03-28', national: 146, private: 85, joint: 6, total: 237 },
+  { published: '2026-04-01', asOf: '2026-03-29', national: 146, private: 83, joint: 6, total: 235 },
+  { published: '2026-04-02', asOf: '2026-03-30', national: 146, private: 82, joint: 6, total: 234 },
+  { published: '2026-04-03', asOf: '2026-03-31', national: 146, private: 82, joint: 6, total: 234 },
 ];
 
 function formatMd(iso) {
