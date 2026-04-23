@@ -177,6 +177,20 @@ body {
   margin-top: 8px;
   letter-spacing: 0.15em;
 }
+.countdown-note {
+  max-width: 36em;
+  margin: 20px auto 0;
+  padding: 0 12px;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: #8890a8;
+  letter-spacing: 0.06em;
+  text-align: left;
+}
+.countdown-note strong {
+  color: #a8b0c4;
+  font-weight: 600;
+}
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
@@ -527,6 +541,19 @@ body {
   color: #555;
   line-height: 1.8;
   animation: fadeInUp 4.5s ease-out;
+}
+.source-note {
+  max-width: 40em;
+  margin: 14px auto 16px;
+  text-align: left;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: #5a5a5a;
+  letter-spacing: 0.04em;
+}
+.source-note strong {
+  color: #444;
+  font-weight: 600;
 }
 .source a {
   color: #667;
