@@ -60,11 +60,26 @@ function formatJaDate(iso) {
   return `${y}年${m}月${d}日`;
 }
 
+/** 横軸ラベルが重ならないよう、等間隔で最大 max 個のインデックスだけ返す */
+function xLabelIndices(n, max) {
+  if (n <= 0) return [];
+  if (n <= max) return Array.from({ length: n }, (_, i) => i);
+  const raw = [];
+  for (let k = 0; k < max; k++) {
+    raw.push(Math.round((k / (max - 1)) * (n - 1)));
+  }
+  return [...new Set(raw)].sort((a, b) => a - b);
+}
+
 function buildChart() {
   const wrap = document.getElementById('reserveChartWrap');
   const hint = document.getElementById('chartHint');
   const tbody = document.getElementById('reserveHistoryBody');
   if (!wrap || !tbody) return;
+
+  const defaultChartHint =
+    (hint && hint.textContent.trim()) ||
+    '横軸の日付は見やすさのため間引きです。全件は下の表で確認できます。点にマウスを当てると公表日・データ時点・内訳が表示されます。';
 
   const data = RESERVE_HISTORY;
   const vals = data.map((r) => r.total);
@@ -104,9 +119,12 @@ function buildChart() {
     gridAndY += `<text class="reserve-chart-ytick" x="${padL - 8}" y="${y + 4}">${Math.round(v)}</text>`;
   }
 
+  const maxXLabels = 11;
+  const xIdx = xLabelIndices(n, maxXLabels);
   let xLabels = '';
-  points.forEach((p) => {
-    xLabels += `<text class="reserve-chart-xtick" text-anchor="middle" x="${p.x}" y="${H - 20}">${formatMd(p.row.asOf)}</text>`;
+  xIdx.forEach((i) => {
+    const p = points[i];
+    xLabels += `<text class="reserve-chart-xtick" text-anchor="middle" x="${p.x}" y="${H - 22}">${formatMd(p.row.asOf)}</text>`;
   });
 
   let circles = '';
@@ -151,13 +169,13 @@ function buildChart() {
       if (hint) hint.textContent = text;
     });
     el.addEventListener('mouseleave', () => {
-      if (hint) hint.textContent = 'グラフの点にマウスを当てると、公表日・データ時点・内訳が表示されます。';
+      if (hint) hint.textContent = defaultChartHint;
     });
     el.addEventListener('focus', () => {
       if (hint) hint.textContent = text;
     });
     el.addEventListener('blur', () => {
-      if (hint) hint.textContent = 'グラフの点にマウスを当てると、公表日・データ時点・内訳が表示されます。';
+      if (hint) hint.textContent = defaultChartHint;
     });
   });
 }
