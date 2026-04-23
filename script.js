@@ -2,8 +2,8 @@
 // の「石油備蓄の状況（推計値の速報）はこちら」PDFを見て RESERVE_DAYS 等を更新（README参照）
 const RESERVE_DAYS = 215;
 const RESERVE_CAPACITY = 215;
-// REFERENCE は速報の「データ時点」（公表日と別のときあり）
-const REFERENCE = new Date('2026-04-20T00:00:00');
+// REFERENCE は速報の「データ時点」（公表日と別のときあり）。日本の公表に合わせ JST 0 時で固定する。
+const REFERENCE = new Date('2026-04-20T00:00:00+09:00');
 
 const SCENARIOS = {
   full: {
