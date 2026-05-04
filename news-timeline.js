@@ -1,28 +1,33 @@
 /**
- * 背景ニュース・公式情報（一次・準一次ソースへのリンクのみ）。
- * 見出し・注記は運営側の要約。内容は必ずリンク先で確認してください。
- * 速報やプレスが増えたら NEWS_DATED に { date, ... } を追記（古いニュースは残してOK）。
+ * 公式・準公式へのリンク集。見出し・注記は運営側の要約。内容は必ずリンク先で確認してください。
+ *
+ * NEWS_DATED … 報道や省庁プレス、国際機関の声明など「出来事」を時系列でメモする欄（ニュース扱い）。
+ * DATA_SOURCE_HUBS … 本サイトの数値の直接の元になる省庁の公表データ（記事ではない）。
  */
 
-const NEWS_DATED = [
+/** 出来事・公表メモ。{ date, title, source, url, note? }。日次速報は DATA_SOURCE_HUBS を参照。 */
+const NEWS_DATED = [];
+
+/** 本サイトの起算の参照先（公表データ。ニュース記事ではない） */
+const DATA_SOURCE_HUBS = [
   {
-    date: '2026-05-01',
-    title: '石油備蓄の現況・推計値速報（日次PDF）',
+    primary: true,
+    title: '石油備蓄の状況（推計値・日次PDF）',
     note:
-      '本サイトの備蓄日数の起算元。公表日・データ時点・内訳はPDF表頭と本文表を参照。毎営業日更新が基本。',
+      '庁が公表する推計の表です（報道ではありません）。公表日・データ時点・内訳はPDF表頭と本文を参照。毎営業日更新が基本。',
     source: '資源エネルギー庁（経済産業省）',
     url: 'https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/pdf-oil-res/oil_daily.pdf',
   },
   {
-    date: '2026-05-01',
+    primary: true,
     title: '石油備蓄の現況（一覧・速報への案内）',
-    note: '速報PDF以外の関連資料・トピックへの入口。最新の公開物はこの一覧からたどる。',
+    note: '速報PDF以外の関連資料への入口。最新の公開物は一覧からたどってください。',
     source: '資源エネルギー庁（経済産業省）',
     url: 'https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/',
   },
 ];
 
-/** 日付を並べない「常設」の参照先（公式・国際機関・主要通信社のトピックページ） */
+/** そのほかの参照ハブ（公式・国際機関・主要通信社のトピックなど） */
 const NEWS_HUBS = [
   {
     title: '石油・LPガス統計（月次・各種トップ）',
@@ -79,6 +84,18 @@ function buildNewsTimeline() {
   const sorted = [...NEWS_DATED].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 
   listEl.replaceChildren();
+  listEl.classList.toggle('news-timeline-list--empty', sorted.length === 0);
+
+  if (sorted.length === 0) {
+    const empty = document.createElement('p');
+    empty.className = 'news-timeline-empty';
+    setText(
+      empty,
+      'ここには、省庁のプレス、国際機関の声明、主要な政策公表など「出来事」を、あとから振り返れるよう日付付きで追記します（現在は未登録）。本サイトの数値の直接の出所は、下の「本サイトの起算元」から確認してください。'
+    );
+    listEl.appendChild(empty);
+  }
+
   for (const item of sorted) {
     const row = document.createElement('article');
     row.className = 'news-timeline-item';
@@ -120,9 +137,10 @@ function buildNewsTimeline() {
   }
 
   hubsEl.replaceChildren();
-  for (const hub of NEWS_HUBS) {
+  const allHubs = DATA_SOURCE_HUBS.concat(NEWS_HUBS);
+  for (const hub of allHubs) {
     const li = document.createElement('li');
-    li.className = 'news-timeline-hub';
+    li.className = 'news-timeline-hub' + (hub.primary ? ' news-timeline-hub--primary' : '');
 
     const link = document.createElement('a');
     link.href = hub.url;
