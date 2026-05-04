@@ -1,8 +1,9 @@
 /**
  * 公式・準公式へのリンク集。見出し・注記は運営側の要約。内容は必ずリンク先で確認してください。
  *
- * NEWS_DATED … 報道や省庁プレス、国際機関の声明など「出来事」を時系列でメモする欄（ニュース扱い）。
+ * NEWS_DATED … 報道や省庁プレスなど「出来事」の手動メモ（同一URLはこちらを優先）。
  * DATA_SOURCE_HUBS … 本サイトの数値の直接の元になる省庁の公表データ（記事ではない）。
+ * 出来事欄には GitHub Actions が生成する news-rss.json（公式RSS）もマージして表示。
  */
 
 /** 出来事・公表メモ。{ date, title, source, url, note? }。日次速報は DATA_SOURCE_HUBS を参照。 */
@@ -76,12 +77,78 @@ function setText(el, s) {
   el.textContent = s;
 }
 
-function buildNewsTimeline() {
+function normUrl(u) {
+  try {
+    const x = new URL(u, window.location.href);
+    x.hash = '';
+    let h = x.href;
+    if (x.pathname !== '/' && h.endsWith('/')) h = h.slice(0, -1);
+    return h;
+  } catch {
+    return String(u || '').trim();
+  }
+}
+
+/** 手動 → RSS の順で突合。同一URLは手動優先。 */
+function mergeNewsItems(manual, rssList) {
+  const map = new Map();
+  for (const it of manual) {
+    map.set(normUrl(it.url), { ...it, rss: false });
+  }
+  for (const it of rssList) {
+    const k = normUrl(it.url);
+    if (!map.has(k)) map.set(k, it);
+  }
+  return [...map.values()].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+}
+
+async function loadNewsRssPayload() {
+  try {
+    const res = await fetch('news-rss.json', { cache: 'default' });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+function formatRssGenerated(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  return (
+    'RSS取得反映: ' +
+    d.toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo',
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    }) +
+    '（アクション実行時刻・目安）'
+  );
+}
+
+async function buildNewsTimeline() {
   const listEl = document.getElementById('newsTimelineList');
   const hubsEl = document.getElementById('newsTimelineHubs');
+  const rssMetaEl = document.getElementById('newsRssMeta');
   if (!listEl || !hubsEl) return;
 
-  const sorted = [...NEWS_DATED].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  const payload = await loadNewsRssPayload();
+  const rssItems = Array.isArray(payload?.items) ? payload.items : [];
+  const sorted = mergeNewsItems(NEWS_DATED, rssItems);
+
+  if (rssMetaEl) {
+    const line = formatRssGenerated(payload?.generatedAt);
+    if (line) {
+      setText(rssMetaEl, line);
+      rssMetaEl.hidden = false;
+    } else {
+      rssMetaEl.hidden = true;
+    }
+  }
 
   listEl.replaceChildren();
   listEl.classList.toggle('news-timeline-list--empty', sorted.length === 0);
@@ -91,14 +158,14 @@ function buildNewsTimeline() {
     empty.className = 'news-timeline-empty';
     setText(
       empty,
-      'ここには、省庁のプレス、国際機関の声明、主要な政策公表など「出来事」を、あとから振り返れるよう日付付きで追記します（現在は未登録）。本サイトの数値の直接の出所は、下の「本サイトの起算元」から確認してください。'
+      '該当する出来事の表示はまだありません（手動メモ未登録か、RSSのキーワードフィルタに合致する経産省リリースが直近にない場合）。本サイトの数値の出所は下の「本サイトの起算元」から確認してください。'
     );
     listEl.appendChild(empty);
   }
 
   for (const item of sorted) {
     const row = document.createElement('article');
-    row.className = 'news-timeline-item';
+    row.className = 'news-timeline-item' + (item.rss ? ' news-timeline-item--rss' : '');
 
     const dateEl = document.createElement('time');
     dateEl.className = 'news-timeline-date';
@@ -119,7 +186,7 @@ function buildNewsTimeline() {
 
     const meta = document.createElement('p');
     meta.className = 'news-timeline-meta';
-    setText(meta, item.source);
+    setText(meta, item.source + (item.rss ? ' ・ RSS自動' : ''));
 
     body.appendChild(title);
     body.appendChild(meta);

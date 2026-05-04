@@ -1,0 +1,39 @@
+# 信頼できる公式RSS（例: METI ニュースリリース Atom）を取得し news-rss.json を更新して push する。
+# リポジトリの Settings → Actions → General → Workflow permissions で
+# 「Read and write permissions」を有効にしてください（ボットが main へ push するため）。
+name: Update news from RSS
+
+on:
+  schedule:
+    - cron: "17 0,12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rss-news
+  cancel-in-progress: true
+
+jobs:
+  update-rss-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch feeds
+        run: python3 scripts/fetch_news_rss.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add news-rss.json
+          if git diff --staged --quiet; then
+            echo "No changes to news-rss.json"
+          else
+            git commit -m "chore: refresh news-rss.json from RSS"
+            git push
+          fi

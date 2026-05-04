@@ -148,9 +148,10 @@
   <section class="news-timeline-section" aria-labelledby="news-timeline-title">
     <h2 id="news-timeline-title" class="news-timeline-title">公式情報・参照リンク</h2>
     <p class="news-timeline-lead">
-      <strong>日次速報PDFは「公表データ」</strong>であって、報道記事ではありません。出来事として後から振り返りたいものだけ、下の日付付き欄に追記します。一次情報・国際機関・主要通信社トピックへのリンクは必ず各サイトで内容を確認してください。
+      <strong>日次速報PDFは「公表データ」</strong>であって、報道記事ではありません。出来事の欄は<strong>経済産業省の公式RSS</strong>から自動で候補を表示しつつ、手動メモ（<code>news-timeline.js</code>の<code>NEWS_DATED</code>）があれば同一URLは手動を優先します。一次情報の内容は必ずリンク先で確認してください。
     </p>
     <h3 class="news-timeline-subhead news-timeline-subhead--events">出来事・公表メモ（ニュース／プレス等・時系列）</h3>
+    <p id="newsRssMeta" class="news-timeline-rss-meta" hidden></p>
     <div id="newsTimelineList" class="news-timeline-list"></div>
     <h3 class="news-timeline-subhead">本サイトの起算元と参照ハブ</h3>
     <ul id="newsTimelineHubs" class="news-timeline-hubs"></ul>
