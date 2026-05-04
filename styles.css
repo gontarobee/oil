@@ -645,16 +645,6 @@ body {
 .news-timeline-subhead--events {
   margin-top: 0;
 }
-.news-timeline-rss-meta {
-  text-align: center;
-  font-size: 0.78rem;
-  color: #8890a8;
-  margin: -6px auto 14px;
-  max-width: 640px;
-}
-.news-timeline-item--rss .news-timeline-item-title a {
-  font-weight: 600;
-}
 .news-timeline-hub--primary {
   border-color: rgba(255, 180, 77, 0.35);
   background: rgba(30, 24, 45, 0.55);
