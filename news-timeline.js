@@ -12,12 +12,22 @@ const NEWS_DATED = [
     title: '第2弾の国家備蓄原油の放出を行います',
     source: '経済産業省（プレスリリース）',
     url: 'https://www.meti.go.jp/press/2026/04/20260424009/20260424009.html',
+    note: '第2弾。放出開始は5月1日以降順次（プレス本文）。',
   },
   {
     date: '2026-03-24',
     title: '国家備蓄原油の放出を行います',
     source: '経済産業省（プレスリリース）',
     url: 'https://www.meti.go.jp/press/2025/03/20260324004/20260324004.html',
+    note: '第1弾。3月26日以降順次放出（プレス本文）。',
+  },
+  {
+    date: '2026-03-11',
+    title:
+      'IEA、加盟国による最大規模の協調在庫放出を決定（中東の市場混乱への対応）',
+    source: 'International Energy Agency（公式・英語）',
+    url: 'https://www.iea.org/news/iea-member-countries-to-carry-out-largest-ever-oil-stock-release-amid-market-disruptions-from-middle-east-conflict',
+    note: '英語リリース。実施の詳細や日本の取組は経産省・資源エネルギー庁の公表を参照。',
   },
 ];
 
