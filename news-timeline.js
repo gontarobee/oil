@@ -1,12 +1,24 @@
 /**
  * 公式・準公式へのリンク集。見出し・注記は運営側の要約。内容は必ずリンク先で確認してください。
  *
- * NEWS_DATED … 省庁プレス等「出来事」の手動メモ（{ date, title, source, url, note? }）。
+ * NEWS_DATED … 省庁・首相官邸等「出来事」の手動メモ（{ date, title, source, url, note? }）。
  * DATA_SOURCE_HUBS … 本サイトの数値の元になる省庁の公表データ（記事ではない）。
  */
 
-/** 出来事・公表メモ（必要に応じ追記・新しい日付が上に来るよう公表日で並べ替え表示）。 */
+/** 出来事・公表メモ（公表日で降順ソート表示。URLは公式で確認済みのもののみ）。 */
 const NEWS_DATED = [
+  {
+    date: '2026-04-30',
+    title: 'ペゼシュキアン・イラン大統領との電話会談についての会見',
+    source: '首相官邸（総理の演説・記者会見）',
+    url: 'https://www.kantei.go.jp/jp/105/statement/2026/0430kaiken.html',
+  },
+  {
+    date: '2026-04-30',
+    title: '第6回 中東情勢に関する関係閣僚会議',
+    source: '首相官邸（総理の一日）',
+    url: 'https://www.kantei.go.jp/jp/105/actions/202604/30kaigi_middle-east.html',
+  },
   {
     date: '2026-04-24',
     title: '第2弾の国家備蓄原油の放出を行います',
@@ -15,11 +27,48 @@ const NEWS_DATED = [
     note: '第2弾。放出開始は5月1日以降順次（プレス本文）。',
   },
   {
+    date: '2026-04-15',
+    title: 'エネルギー強靱化に関するＡＺＥＣ＋オンライン首脳会合についての会見',
+    source: '首相官邸（総理の演説・記者会見）',
+    url: 'https://www.kantei.go.jp/jp/105/statement/2026/0415kaiken.html',
+  },
+  {
+    date: '2026-04-10',
+    title: '第3回 中東情勢に関する関係閣僚会議',
+    source: '首相官邸（総理の一日）',
+    url: 'https://www.kantei.go.jp/jp/105/actions/202604/10kaigi_middle-east.html',
+  },
+  {
+    date: '2026-04-07',
+    title: '令和８年度予算成立及び中東情勢への対応等についての会見',
+    source: '首相官邸（総理の演説・記者会見）',
+    url: 'https://www.kantei.go.jp/jp/105/statement/2026/0407kaiken.html',
+  },
+  {
+    date: '2026-03-31',
+    title: '第2回 中東情勢に関する関係閣僚会議',
+    source: '首相官邸（総理の一日）',
+    url: 'https://www.kantei.go.jp/jp/105/actions/202603/31kaigi_middle-east.html',
+  },
+  {
     date: '2026-03-24',
     title: '国家備蓄原油の放出を行います',
     source: '経済産業省（プレスリリース）',
     url: 'https://www.meti.go.jp/press/2025/03/20260324004/20260324004.html',
     note: '第1弾。3月26日以降順次放出（プレス本文）。',
+  },
+  {
+    date: '2026-03-13',
+    title:
+      '自由民主党・エネルギーの安定供給確保及び海上輸送途絶対策に向けた緊急提言申入れ',
+    source: '首相官邸（総理の一日）',
+    url: 'https://www.kantei.go.jp/jp/105/actions/202603/13teigen.html',
+  },
+  {
+    date: '2026-03-11',
+    title: 'Ｇ７首脳オンライン会議',
+    source: '首相官邸（総理の一日）',
+    url: 'https://www.kantei.go.jp/jp/105/actions/202603/11tv_kaigi.html',
   },
   {
     date: '2026-03-11',
