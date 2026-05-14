@@ -131,13 +131,18 @@ function updateResultText() {
 
   let html = `<div class="result-text">`;
   html += sc.explain + '<br>';
-  html += `残り約 <strong>${remainDays}日分</strong> → `;
-  html += `<strong>${formatDate(date)}</strong> に枯渇`;
+  html +=
+    `<strong>備蓄の残り（在庫の厚み）</strong>の試算: 約<strong>${remainDays}日分</strong>。` +
+    `「○日分」は公表と同じ物差しで、データ時点から今日までの経過をこのシナリオで織り込んだ残りです。<br>`;
+  html +=
+    `<strong>いまから枯渇予測時刻までのカレンダー日数</strong>は、見出し直下の<strong>大きなカウントダウン</strong>と同じです。` +
+    `輸入が一部続くシナリオでは、同じ在庫でも1日あたりの備蓄への頼り方が抑えられるため、<strong>在庫の「日分」よりカウントダウンの日数の方が大きくなります</strong>（完全輸入停止に近いほど両者は近づきます）。<br>`;
+  html += `枯渇の目安: <strong>${formatDate(date)}</strong>`;
   if (sc.saving > 0) {
     const withoutSaving = Math.floor(RESERVE_DAYS / sc.importLoss);
     const withSaving = Math.floor(RESERVE_DAYS / (sc.importLoss * (1 - sc.saving)));
     const extended = withSaving - withoutSaving;
-    html += `<br>（節約により約<strong>${extended}日</strong>延命）`;
+    html += `<br>（<strong>同じ輸入条件で節約がない試算</strong>と比べ、約<strong>${extended}日</strong>長く持つ計算です。完全輸入停止の${RESERVE_DAYS}日分との差ではありません。）`;
   }
   html += '</div>';
   el.innerHTML = html;
