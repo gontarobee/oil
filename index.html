@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>石油備蓄枯渇までのカウントダウン｜日本石油備蓄枯渇カウンター</title>
-<meta name="description" content="石油備蓄が枯渇するまでのカウントダウン。資源エネルギー庁の公表データに基づき、完全輸入停止・ホルムズ海峡封鎖・輸入半減のシナリオで枯渇日を試算。非公式の可視化ツールです。">
+<meta name="description" content="石油備蓄が枯渇するまでのカウントダウン。資源エネルギー庁の公表データに基づき、完全輸入停止・ホルムズ海峡の封鎖・通航困難・輸入半減のシナリオで枯渇日を試算。非公式の可視化ツールです。">
 <link rel="canonical" href="https://gontarobee.github.io/oil/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://gontarobee.github.io/oil/">
@@ -28,7 +28,7 @@
     <div class="era">西暦 2026年</div>
     <p>
       ホルムズ海峡の封鎖・通航困難により<br>
-      日本のエネルギー供給は危機に瀕してる。<br>
+      日本のエネルギー供給は危機に瀕している。<br>
       石油備蓄の枯渇まで、残された時間は——
     </p>
   </div>
@@ -36,7 +36,7 @@
   <!-- Countdown -->
   <div class="countdown-section" id="countdownSection">
     <div class="countdown-label">
-      <span class="highlight warning-pulse">石油枯渇</span>まで あと
+      <span class="highlight warning-pulse">石油備蓄枯渇</span>まで あと
     </div>
     <div class="countdown-display" id="countdownDisplay">
       <div class="countdown-days-row">
@@ -64,11 +64,11 @@
     <div class="scenario-buttons">
       <button class="scenario-btn active" onclick="setScenario('full', this)">
         <span class="btn-title">完全輸入停止</span>
-        <span class="btn-desc">全ての石油輸入がゼロになった場合。<br>備蓄だけで生活する最悪のシナリオ。</span>
+        <span class="btn-desc">全ての石油輸入がゼロになった場合。<br>備蓄だけで生活を支える厳しいシナリオ。</span>
       </button>
       <button class="scenario-btn" onclick="setScenario('hormuz', this)">
         <span class="btn-title">ホルムズ海峡封鎖・通航困難</span>
-        <span class="btn-desc">中東依存度95.9%を試算前提に当該輸入が停止。<br>その他地域からの輸入は継続。試算では10%節約を仮定。</span>
+        <span class="btn-desc">直近統計の中東依存度95.9%を試算前提に、中東からの輸入が停止。<br>その他地域からの輸入は継続。試算では10%節約を仮定。</span>
       </button>
       <button class="scenario-btn" onclick="setScenario('half', this)">
         <span class="btn-title">輸入半減</span>
@@ -82,7 +82,7 @@
   <!-- Oil gauge -->
   <div class="gauge-section">
     <div class="gauge-container">
-      <div class="gauge-title">備蓄残量</div>
+      <div class="gauge-title">試算上の備蓄残量</div>
       <div class="gauge-bar-wrapper">
         <div class="gauge-bar" id="gaugeBar" style="width:100%"></div>
         <div class="gauge-percent" id="gaugePercent">--%</div>
@@ -98,7 +98,7 @@
   <div class="data-grid">
     <div class="data-card">
       <div class="card-value">207<span class="card-unit">日分</span></div>
-      <div class="card-label">総備蓄量（2026年5月11日時点）</div>
+      <div class="card-label">公表時点の総備蓄量（2026年5月11日時点）</div>
     </div>
     <div class="data-card">
       <div class="card-value">45<span class="card-unit">日分</span></div>
@@ -148,13 +148,13 @@
   <section class="news-timeline-section" aria-labelledby="news-timeline-title">
     <h2 id="news-timeline-title" class="news-timeline-title">公式情報・参照リンク</h2>
     <p class="news-timeline-lead">
-      <strong>日次速報PDFは「公表データ」</strong>で、報道記事ではありません。各リンクの下に<strong>短文の概要</strong>を付けているので、目的に合えば先へ飛ばずに済むこともあります（確定の内容・数字は必ずリンク先・一次資料で確認）。出来事はメンテ時に <code>news-timeline.js</code> の <code>NEWS_DATED</code> を更新。府省・デジタル庁・国会の入口は下の「府省・デジタル庁」「国会・立法情報」にあります。
+      <strong>毎営業日の速報PDFは「公表データ」</strong>で、報道記事ではありません。各リンクの下に<strong>短い要約</strong>を付けているので、目的に合えば先へ飛ばずに済むこともあります（確定の内容・数字は必ずリンク先・一次資料で確認）。出来事欄は公式発表を確認し、随時更新しています。関連する府省庁・デジタル庁・国会の入口も下にまとめています。
     </p>
-    <h3 class="news-timeline-subhead news-timeline-subhead--events">出来事・公表メモ（手動・時系列）</h3>
+    <h3 class="news-timeline-subhead news-timeline-subhead--events">主な出来事・公式発表（時系列）</h3>
     <div id="newsTimelineList" class="news-timeline-list"></div>
-    <h3 class="news-timeline-subhead">本サイトの起算元と参照ハブ</h3>
+    <h3 class="news-timeline-subhead">数値の根拠と参考情報</h3>
     <ul id="newsTimelineHubs" class="news-timeline-hubs"></ul>
-    <h3 class="news-timeline-subhead">府省・デジタル庁（石油・エネルギー・中東情勢などの入口）</h3>
+    <h3 class="news-timeline-subhead">府省庁・デジタル庁の関連情報</h3>
     <ul id="newsTimelineMinistryHubs" class="news-timeline-hubs"></ul>
     <h3 class="news-timeline-subhead">国会・立法情報</h3>
     <ul id="newsTimelineDietHubs" class="news-timeline-hubs"></ul>
@@ -165,17 +165,17 @@
 
   <!-- Source -->
   <div class="source">
-    <strong>データ出典</strong><br>
+    <strong>主なデータ出典</strong><br>
     資源エネルギー庁「石油備蓄の現況」令和8年5月14日公表（5月11日時点）<br>
     国家備蓄120日分 / 民間備蓄86日分 / 産油国共同備蓄1日分 ＝ 合計 <strong>207日分</strong><br>
     <p class="source-note">※ 上記は公表PDFの<strong>データ時点</strong>における値です。画面上部のカウントダウンは<strong>いまから</strong>枯渇予測までの目安で、データ時点から今日までの経過を簡易モデルに織り込むため、この日数とは一致しません。</p>
     <a href="https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/" target="_blank" rel="noopener noreferrer">
       石油備蓄の現況（一覧ページ）
     </a>
-    ／ 毎日確認:
+    ／ 最新情報の確認先:
     <strong>上記ページの「石油備蓄の状況（推計値の速報）はこちら」</strong>（最新PDF）<br>
     <a href="https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/pdf-oil-res/oil_daily.pdf" target="_blank" rel="noopener noreferrer">
-      今回の起算に使った速報PDF（oil_daily.pdf）
+      今回の計算に使った速報PDF（oil_daily.pdf）
     </a><br><br>
     備蓄放出: 第1弾は 3/16〜 民間15日分 / 3月下旬〜 国家備蓄30日分。第2弾は 5/1以降順次、国家備蓄20日分規模（官邸・経産省公表）<br>
     第1弾合計45日分・約7,980万バレル（IEA加盟国協調放出の一部、日米で全体の約6割）<br><br>
