@@ -627,6 +627,12 @@ body {
   line-height: 1.65;
   margin-top: 8px;
 }
+.news-timeline-summary {
+  font-size: 0.84rem;
+  color: #c4c8d8;
+  line-height: 1.65;
+  margin-top: 6px;
+}
 .news-timeline-list.news-timeline-list--empty {
   border-left: none;
   padding-left: 0;
@@ -680,9 +686,15 @@ body {
   color: #8890a8;
   font-weight: 400;
 }
-.news-timeline-hub-note {
+.news-timeline-hub-summary {
   margin-top: 8px;
-  font-size: 0.82rem;
+  font-size: 0.84rem;
+  color: #c4c8d8;
+  line-height: 1.6;
+}
+.news-timeline-hub-note {
+  margin-top: 6px;
+  font-size: 0.8rem;
   color: #a8b0c4;
   line-height: 1.6;
 }
