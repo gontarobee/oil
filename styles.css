@@ -370,21 +370,184 @@ body {
 .scenario-result {
   text-align: center;
   margin-top: 20px;
-  padding: 16px;
-  background: rgba(0, 0, 0, 0.3);
+  padding: 20px 16px 18px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 140, 0, 0.22);
+}
+.scenario-result-empty {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #8890a8;
+  line-height: 1.65;
+}
+.scenario-result-layout {
+  animation: scenarioResultIn 0.45s ease-out;
+}
+@keyframes scenarioResultIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.scenario-tagline {
+  margin: 0 auto 18px;
+  max-width: 38em;
+  font-size: 0.88rem;
+  color: #c8cfdf;
+  line-height: 1.65;
+  text-align: center;
+  padding: 12px 14px;
+  background: rgba(255, 140, 0, 0.06);
   border-radius: 8px;
-  border: 1px solid rgba(255, 140, 0, 0.15);
+  border-left: 3px solid var(--amber);
 }
-.scenario-result .result-text {
-  font-size: 0.95rem;
-  color: #b0b8cc;
-  line-height: 1.8;
+.scenario-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+  text-align: center;
 }
-.scenario-result .result-text strong {
+@media (max-width: 520px) {
+  .scenario-metric-grid { grid-template-columns: 1fr; }
+}
+.scenario-metric-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 12px 16px;
+  background: linear-gradient(165deg, rgba(255, 140, 0, 0.1), rgba(0, 0, 0, 0.45));
+  border: 1px solid rgba(255, 140, 0, 0.28);
+  border-radius: 12px;
+}
+.scenario-metric-card--focus {
+  border-color: rgba(255, 200, 120, 0.45);
+  box-shadow: 0 0 28px rgba(255, 140, 0, 0.12);
+}
+.scenario-metric-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #8890a8;
+}
+.scenario-metric-value {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--amber);
+  line-height: 1.15;
+}
+@media (min-width: 480px) {
+  .scenario-metric-value { font-size: 1.85rem; }
+}
+@media (min-width: 720px) {
+  .scenario-metric-value { font-size: 2.05rem; }
+}
+.scenario-metric-value--datetime {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+@media (min-width: 480px) {
+  .scenario-metric-value--datetime { font-size: 1.18rem; }
+}
+@media (min-width: 720px) {
+  .scenario-metric-value--datetime { font-size: 1.28rem; }
+}
+.scenario-metric-unit {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.48em;
+  font-weight: 700;
+  margin-left: 0.12em;
+  vertical-align: 0.08em;
+}
+.scenario-metric-hint {
+  font-size: 0.74rem;
+  color: #7a8299;
+  line-height: 1.45;
+  max-width: 16rem;
+}
+.scenario-metric-hint strong {
+  color: #d4dae8;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.95em;
+}
+.scenario-saving-chip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px 14px;
+  margin: 0 auto 14px;
+  max-width: 32rem;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  color: #b8c0d4;
+  line-height: 1.5;
+  background: rgba(255, 140, 0, 0.08);
+  border-radius: 8px;
+  border-left: 3px solid var(--gold);
+}
+.scenario-saving-chip-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+.scenario-saving-chip-text strong {
   color: var(--amber);
   font-family: 'Orbitron', monospace;
-  font-size: 1.1rem;
 }
+.scenario-details {
+  margin-top: 4px;
+  text-align: left;
+  border-top: 1px solid rgba(255, 140, 0, 0.12);
+  padding-top: 10px;
+}
+.scenario-details-summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  padding: 8px 4px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+.scenario-details-summary::-webkit-details-marker { display: none; }
+.scenario-details-summary::marker { content: ''; }
+.scenario-details-summary:hover {
+  background: rgba(255, 140, 0, 0.08);
+  color: #ffe566;
+}
+.scenario-details-chevron {
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  margin-top: -2px;
+}
+.scenario-details[open] .scenario-details-chevron {
+  transform: rotate(-135deg);
+  margin-top: 2px;
+}
+.scenario-details-body {
+  padding: 4px 4px 10px 26px;
+  font-size: 0.8rem;
+  color: #9aa3b8;
+  line-height: 1.75;
+}
+.scenario-details-body p { margin: 0 0 0.65em; }
+.scenario-details-body p:last-child { margin-bottom: 0; }
+.scenario-details-body strong { color: #c8cfdf; }
 
 /* ── Reserve history chart ── */
 .reserve-chart-section {

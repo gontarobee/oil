@@ -30,6 +30,12 @@ let currentScenario = 'full';
 
 const $ = id => document.getElementById(id);
 
+function escapeHtml(text) {
+  const tmp = document.createElement('div');
+  tmp.textContent = text;
+  return tmp.innerHTML;
+}
+
 function calcDepletion() {
   const sc = SCENARIOS[currentScenario];
   const dailyDraw = sc.importLoss * (1 - sc.saving);
@@ -124,28 +130,51 @@ function updateResultText() {
   const { date, remaining } = calcDepletion();
   const el = $('scenarioResult');
   if (!date || !isFinite(date.getTime())) {
-    el.innerHTML = '<div class="result-text">備蓄は減りません。</div>';
+    el.innerHTML =
+      '<p class="scenario-result-empty">この条件では、試算上は備蓄がほとんど減りません。</p>';
     return;
   }
   const remainDays = Math.floor(remaining);
+  const now = new Date();
+  const diffMs = date - now;
+  const calendarDaysRemain = diffMs <= 0 ? 0 : Math.floor(diffMs / 86400000);
 
-  let html = `<div class="result-text">`;
-  html += sc.explain + '<br>';
-  html +=
-    `<strong>備蓄の残り（在庫の厚み）</strong>の試算: 約<strong>${remainDays}日分</strong>。` +
-    `「○日分」は公表と同じ物差しで、データ時点から今日までの経過をこのシナリオで織り込んだ残りです。<br>`;
-  html +=
-    `<strong>いまから枯渇予測時刻までのカレンダー日数</strong>は、見出し直下の<strong>大きなカウントダウン</strong>と同じです。` +
-    `輸入が一部続くシナリオでは、同じ在庫でも1日あたりの備蓄への頼り方が抑えられるため、<strong>在庫の「日分」よりカウントダウンの日数の方が大きくなります</strong>（完全輸入停止に近いほど両者は近づきます）。<br>`;
-  html += `枯渇の目安: <strong>${formatDate(date)}</strong>`;
+  let savingBlock = '';
   if (sc.saving > 0) {
     const withoutSaving = Math.floor(RESERVE_DAYS / sc.importLoss);
     const withSaving = Math.floor(RESERVE_DAYS / (sc.importLoss * (1 - sc.saving)));
     const extended = withSaving - withoutSaving;
-    html += `<br>（<strong>同じ輸入条件で節約がない試算</strong>と比べ、約<strong>${extended}日</strong>長く持つ計算です。完全輸入停止の${RESERVE_DAYS}日分との差ではありません。）`;
+    savingBlock = `<div class="scenario-saving-chip" role="note">
+      <span class="scenario-saving-chip-label">節約の効果</span>
+      <span class="scenario-saving-chip-text">同じ輸入条件で<strong>節約なし</strong>と比べ、試算上 <strong>約${extended}日</strong> 長く持つ</span>
+    </div>`;
   }
-  html += '</div>';
-  el.innerHTML = html;
+
+  el.innerHTML = `
+    <div class="scenario-result-layout">
+      <p class="scenario-tagline">${escapeHtml(sc.explain)}</p>
+      <div class="scenario-metric-grid" aria-label="試算の見方">
+        <div class="scenario-metric-card">
+          <span class="scenario-metric-label">在庫の厚み</span>
+          <span class="scenario-metric-value">${remainDays}<span class="scenario-metric-unit">日分</span></span>
+          <span class="scenario-metric-hint">公表の「日分」と同じ物差し</span>
+        </div>
+        <div class="scenario-metric-card scenario-metric-card--focus">
+          <span class="scenario-metric-label">枯渇の目安</span>
+          <span class="scenario-metric-value scenario-metric-value--datetime">${escapeHtml(formatDate(date))}</span>
+          <span class="scenario-metric-hint">上の大型カウントダウンの「日」≈ <strong>${calendarDaysRemain}</strong> 日</span>
+        </div>
+      </div>
+      ${savingBlock}
+      <details class="scenario-details">
+        <summary class="scenario-details-summary"><span class="scenario-details-chevron" aria-hidden="true"></span>2つの数字が違う理由</summary>
+        <div class="scenario-details-body">
+          <p><strong>日分</strong>は、いま手元にある備蓄を「平常1日あたり」で換算した厚みです。</p>
+          <p><strong>カウントダウンの日数</strong>は、カレンダーでいまからその時刻までの日です。輸入が一部続くと、1日あたり備蓄だけで埋める穴が小さくなるので、同じ在庫でも<strong>カレンダー上は長く見えます</strong>。</p>
+        </div>
+      </details>
+    </div>
+  `;
 }
 
 function setScenario(type, btnEl) {
