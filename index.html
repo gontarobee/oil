@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>石油備蓄枯渇までのカウントダウン｜日本石油備蓄枯渇カウンター</title>
-<meta name="description" content="石油備蓄が枯渇するまでのカウントダウン。資源エネルギー庁の公表データに基づき、完全輸入停止・ホルムズ海峡の封鎖・通航困難・輸入半減のシナリオで枯渇日を試算。非公式の可視化ツールです。">
+<meta name="description" content="石油備蓄が枯渇するまでのカウントダウン。資源エネルギー庁の公表データに基づき、完全輸入停止・ホルムズ海峡の封鎖・通航困難・輸入半減・代替取引先の増加などの仮定で枯渇日を試算。非公式の可視化ツールです。">
 <link rel="canonical" href="https://gontarobee.github.io/oil/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://gontarobee.github.io/oil/">
@@ -73,6 +73,10 @@
       <button class="scenario-btn" onclick="setScenario('half', this)">
         <span class="btn-title">輸入半減</span>
         <span class="btn-desc">何らかの理由で輸入量が半分に。<br>国民も5%の節約に協力した場合。</span>
+      </button>
+      <button class="scenario-btn" onclick="setScenario('alternatives', this)">
+        <span class="btn-title">代替取引先の増加</span>
+        <span class="btn-desc">主要ルートが減っても、他国・他ルートで不足の多くを埋める。<br>試算では5%節約。数値は説明用の仮定です。</span>
       </button>
     </div>
 

@@ -1073,6 +1073,26 @@ body {
 .legal-page ol {
   margin: 0.5rem 0 0.5rem 1.25rem;
 }
+.legal-page .formula-block {
+  margin: 1rem 0 1.25rem;
+  padding: 1rem 1.15rem;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 140, 0, 0.22);
+  border-radius: 8px;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: #c8cfdf;
+}
+.legal-page .formula-block p { margin: 0.5em 0; }
+.legal-page .formula-block p:first-child { margin-top: 0; }
+.legal-page .formula-block p:last-child { margin-bottom: 0; }
+.legal-page .formula-block code {
+  font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.88em;
+  color: #ffb366;
+  word-break: break-all;
+}
+
 .legal-page .note {
   font-size: 0.88rem;
   color: #8890a8;

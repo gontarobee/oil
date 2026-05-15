@@ -23,6 +23,14 @@ const SCENARIOS = {
     saving: 0.05,
     label: '輸入半減',
     explain: '輸入量が半分に減少。国民が5%の節約に協力。'
+  },
+  /** 代替で不足の多くを埋める想定。数値は説明用の仮定（公的統計の直接引用ではない）。 */
+  alternatives: {
+    importLoss: 0.35,
+    saving: 0.05,
+    label: '代替取引先の増加',
+    explain:
+      '主要ルートが減っても、他国・他ルートの代替で不足の多くを埋める想定。試算では国民が5%節約に協力。備蓄への負担は「輸入半減」より小さい仮定。'
   }
 };
 
@@ -36,6 +44,14 @@ function escapeHtml(text) {
   return tmp.innerHTML;
 }
 
+/**
+ * 線形モデル（guide/how-days-calculated.html#formula と同じ式）
+ * dailyDraw = importLoss * (1 - saving)   … 1カレンダー日あたり減る「日分」
+ * effectiveDays = RESERVE_DAYS / dailyDraw
+ * depletionDate = REFERENCE + effectiveDays（ミリ秒換算）
+ * elapsed = max(0, (now - REFERENCE) / 1日)
+ * remaining = max(0, RESERVE_DAYS - elapsed * dailyDraw)
+ */
 function calcDepletion() {
   const sc = SCENARIOS[currentScenario];
   const dailyDraw = sc.importLoss * (1 - sc.saving);
@@ -155,9 +171,9 @@ function updateResultText() {
       <p class="scenario-tagline">${escapeHtml(sc.explain)}</p>
       <div class="scenario-metric-grid" aria-label="試算の見方">
         <div class="scenario-metric-card">
-          <span class="scenario-metric-label">在庫の厚み</span>
+          <span class="scenario-metric-label">いま残っている備蓄</span>
           <span class="scenario-metric-value">${remainDays}<span class="scenario-metric-unit">日分</span></span>
-          <span class="scenario-metric-hint">公表の「日分」と同じ物差し</span>
+          <span class="scenario-metric-hint">輸入が全部止まった場合の目安</span>
         </div>
         <div class="scenario-metric-card scenario-metric-card--focus">
           <span class="scenario-metric-label">枯渇の目安</span>
@@ -169,8 +185,8 @@ function updateResultText() {
       <details class="scenario-details">
         <summary class="scenario-details-summary"><span class="scenario-details-chevron" aria-hidden="true"></span>2つの数字が違う理由</summary>
         <div class="scenario-details-body">
-          <p><strong>日分</strong>は、いま手元にある備蓄を「平常1日あたり」で換算した厚みです。</p>
-          <p><strong>カウントダウンの日数</strong>は、カレンダーでいまからその時刻までの日です。輸入が一部続くと、1日あたり備蓄だけで埋める穴が小さくなるので、同じ在庫でも<strong>カレンダー上は長く見えます</strong>。</p>
+          <p><strong>「日分」</strong>は、輸入が完全に止まったら何日もつか、という目安です。</p>
+          <p><strong>カウントダウン</strong>は、実際のカレンダーであと何日かを出しています。輸入がまだ続くほど、備蓄の減り方はゆっくりになります。そのため、同じ備蓄量でも<strong>枯渇までの日数は長くなります</strong>。</p>
         </div>
       </details>
     </div>

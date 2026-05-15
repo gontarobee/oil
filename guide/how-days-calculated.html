@@ -37,6 +37,34 @@
     <li>そのペースで線形に減り続けると仮定し、ゼロになる日時を表示する。</li>
   </ul>
 
+  <h2 id="formula">計算式（線形モデル・実装と同じ）</h2>
+  <p>次の記号は、トップの <code>script.js</code> にある変数名に対応させています。</p>
+  <ul>
+    <li><strong>R</strong> … 起算の備蓄日数（コードでは <code>RESERVE_DAYS</code>）</li>
+    <li><strong>t₀</strong> … そのデータの基準日時（コードでは <code>REFERENCE</code>、JST の 0 時で固定）</li>
+    <li><strong>p</strong> … 輸入損失の強さ（コードでは <code>importLoss</code>、0〜1）。「平常の需要のうち、備蓄だけで埋めなければならない割合が p 倍のペースになる」という<strong>単純化</strong>です。</li>
+    <li><strong>s</strong> … 節約率（コードでは <code>saving</code>、0〜1）。需要が <code>(1 − s)</code> 倍になると仮定します。</li>
+    <li><strong>now</strong> … ページを見ているいまの日時</li>
+  </ul>
+
+  <div class="formula-block">
+    <p><strong>1カレンダー日あたりの備蓄の減り（「日分」／日）</strong></p>
+    <p><code>dailyDraw = p × (1 − s)</code></p>
+    <p>例: 輸入半減なら <code>p = 0.5</code>、5% 節約なら <code>s = 0.05</code> なので <code>dailyDraw = 0.5 × 0.95 = 0.475</code>。完全輸入停止なら <code>p = 1</code>、節約なしなら <code>s = 0</code> で <code>dailyDraw = 1</code>。</p>
+    <p><strong>データ基準から見た「枯渇までの日数」（連続値）</strong></p>
+    <p><code>effectiveDays = R ÷ dailyDraw</code></p>
+    <p><strong>枯渇の目安の日時</strong>（基準から effectiveDays 日後）</p>
+    <p><code>depletionDate = t₀ + effectiveDays</code>（実装ではミリ秒に換算して加算）</p>
+    <p><strong>いま残っている備蓄（「日分」）</strong></p>
+    <p><code>elapsed = max(0, (now − t₀) の経過日数)</code></p>
+    <p><code>consumed = elapsed × dailyDraw</code></p>
+    <p><code>remaining = max(0, R − consumed)</code></p>
+    <p><strong>ゲージの％</strong>（表示用。容量基準は通常 R と同じ <code>RESERVE_CAPACITY</code>）</p>
+    <p><code>pct = (remaining ÷ RESERVE_CAPACITY) × 100</code></p>
+  </div>
+
+  <p><strong>シナリオを増やす場合:</strong> 上の式はそのままです。<code>alternatives</code> のように<strong>別の (p, s) を1行足すだけ</strong>で、分岐や別の数式は不要です。増やすときは「その p が何を意味するか」を説明文で明示してください（公的な一つの数字として決まっているとは限りません）。</p>
+
   <div class="important">
     <p><strong>実際の消費・放出・調達はこのモデルよりはるかに複雑</strong>です。製油所の稼働、需給調整、代替輸入ルート、政策による放出・節約要請など、多くの要因でペースは変わります。本サイトの日時は<strong>直感的な比較用の試算</strong>であり、予測保証や政策判断の根拠には使えません。</p>
   </div>
