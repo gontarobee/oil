@@ -1,9 +1,9 @@
 // 備蓄日数: 毎日 https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/
 // の「石油備蓄の状況（推計値の速報）はこちら」PDFを見て RESERVE_DAYS 等を更新（README参照）
-const RESERVE_DAYS = 208;
-const RESERVE_CAPACITY = 208;
+const RESERVE_DAYS = 205;
+const RESERVE_CAPACITY = 205;
 // REFERENCE は速報の「データ時点」（公表日と別のときあり）。日本の公表に合わせ JST 0 時で固定する。
-const REFERENCE = new Date('2026-05-12T00:00:00+09:00');
+const REFERENCE = new Date('2026-05-17T00:00:00+09:00');
 
 const SCENARIOS = {
   full: {
