@@ -75,6 +75,15 @@ const RESERVE_HISTORY = [
   { published: '2026-05-18', asOf: '2026-05-15', national: 117, private: 88, joint: 1, total: 206 },
   { published: '2026-05-19', asOf: '2026-05-16', national: 117, private: 87, joint: 1, total: 205 },
   { published: '2026-05-20', asOf: '2026-05-17', national: 117, private: 88, joint: 1, total: 205 },
+  { published: '2026-05-21', asOf: '2026-05-18', national: 116, private: 89, joint: 1, total: 206 },
+  { published: '2026-05-22', asOf: '2026-05-19', national: 115, private: 90, joint: 1, total: 205 },
+  { published: '2026-05-23', asOf: '2026-05-20', national: 113, private: 90, joint: 1, total: 204 },
+  { published: '2026-05-24', asOf: '2026-05-21', national: 112, private: 90, joint: 1, total: 203 },
+  { published: '2026-05-25', asOf: '2026-05-22', national: 112, private: 89, joint: 1, total: 202 },
+  { published: '2026-05-26', asOf: '2026-05-23', national: 112, private: 90, joint: 1, total: 203 },
+  { published: '2026-05-27', asOf: '2026-05-24', national: 111, private: 92, joint: 1, total: 203 },
+  { published: '2026-05-28', asOf: '2026-05-25', national: 111, private: 91, joint: 2, total: 203 },
+  { published: '2026-05-29', asOf: '2026-05-26', national: 110, private: 92, joint: 2, total: 204 },
 ];
 
 function formatMd(iso) {
