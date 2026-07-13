@@ -3,7 +3,7 @@
 const RESERVE_DAYS = 201;
 const RESERVE_CAPACITY = 201;
 // REFERENCE は速報の「データ時点」（公表日と別のときあり）。日本の公表に合わせ JST 0 時で固定する。
-const REFERENCE = new Date('2026-06-08T00:00:00+09:00');
+const REFERENCE = new Date('2026-07-10T00:00:00+09:00');
 
 const SCENARIOS = {
   full: {
