@@ -97,7 +97,7 @@ body {
 }
 .narration h1 {
   margin-bottom: 16px;
-  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-size: 2.6rem;
   line-height: 1.35;
   color: #f4f7ff;
   letter-spacing: 0.08em;
@@ -184,6 +184,27 @@ body {
 }
 .status-sources a {
   color: #9bd5ff;
+}
+.published-level {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(93, 211, 158, 0.2);
+}
+.published-level .gauge-title {
+  color: var(--green);
+}
+.published-level-bar {
+  background: linear-gradient(90deg, #237653, var(--green));
+}
+.published-level-note,
+.scenario-gauge-note {
+  margin-top: 12px;
+  color: #8f9bad;
+  font-size: 0.78rem;
+  line-height: 1.65;
+}
+.scenario-gauge-note {
+  text-align: center;
 }
 
 /* ── Main countdown ── */
@@ -1016,6 +1037,7 @@ body {
 
 /* ── Responsive ── */
 @media (max-width: 640px) {
+  .narration h1 { font-size: 1.8rem; }
   .countdown-number.days { font-size: 5rem; }
   .countdown-number.time { font-size: 2rem; }
   .countdown-separator { font-size: 1.8rem; }

@@ -60,9 +60,11 @@
     <p><code>elapsed = max(0, (now − t₀) の経過日数)</code></p>
     <p><code>consumed = elapsed × dailyDraw</code></p>
     <p><code>remaining = max(0, R − consumed)</code></p>
-    <p><strong>ゲージの％</strong>（表示用。容量基準は通常 R と同じ <code>RESERVE_CAPACITY</code>）</p>
-    <p><code>pct = (remaining ÷ RESERVE_CAPACITY) × 100</code></p>
+    <p><strong>シナリオ残存率</strong>（表示用。試算開始時の日数を <code>SCENARIO_BASE_DAYS</code> として100%にする）</p>
+    <p><code>pct = (remaining ÷ SCENARIO_BASE_DAYS) × 100</code></p>
   </div>
+
+  <p>トップに併記する<strong>公表備蓄日数の水準</strong>は、このシナリオ残存率とは別です。現在の公表値を掲載履歴の最高値と比較したもので、物理的なタンク充填率ではありません。</p>
 
   <p><strong>シナリオを増やす場合:</strong> 上の式はそのままです。<code>alternatives</code> のように<strong>別の (p, s) を1行足すだけ</strong>で、分岐や別の数式は不要です。増やすときは「その p が何を意味するか」を説明文で明示してください（公的な一つの数字として決まっているとは限りません）。</p>
 

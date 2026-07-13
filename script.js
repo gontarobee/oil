@@ -1,7 +1,7 @@
 // 備蓄日数: 毎日 https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/
 // の「石油備蓄の状況（推計値の速報）はこちら」PDFを見て RESERVE_DAYS 等を更新（README参照）
 const RESERVE_DAYS = 201;
-const RESERVE_CAPACITY = 201;
+const SCENARIO_BASE_DAYS = RESERVE_DAYS;
 // 仮想シナリオは「ページを開いた時点から起きた場合」として試算する。
 const SIMULATION_START = new Date();
 
@@ -74,7 +74,7 @@ function calcDepletion() {
   const elapsed = Math.max(0, (now - SIMULATION_START) / 86400000);
   const consumed = elapsed * dailyDraw;
   const remaining = Math.max(0, RESERVE_DAYS - consumed);
-  const pct = (remaining / RESERVE_CAPACITY) * 100;
+  const pct = (remaining / SCENARIO_BASE_DAYS) * 100;
 
   return { days: effectiveDays, date: depletionDate, pct, dailyDraw, remaining };
 }
