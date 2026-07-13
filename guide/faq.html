@@ -29,18 +29,19 @@
   <p><strong>いいえ。</strong>個人が運営する非公式のページです。表示は教育・可視化目的の試算であり、資源エネルギー庁等の公式見解や予測を代表するものではありません。</p>
 
   <h2 id="q2">カウントダウンの数字は何を意味しますか？</h2>
-  <p>トップに示した<strong>備蓄日数の起算値</strong>と、選択中の<strong>シナリオ</strong>（輸入がどれだけ減るか・節約がどれだけあるかの仮定）から、単純な線形モデルで「備蓄が尽きるまでのおおよその日時」を出しています。<a href="how-days-calculated.html#formula">計算式と考え方</a>を参照してください。</p>
+  <p>「現在の供給見通し」以外を選ぶと、最新公表の<strong>備蓄日数</strong>と選択中の<strong>シナリオ</strong>から、その仮定がページを開いた時点で始まった場合の日時を単純な線形モデルで表示します。実際の枯渇予測ではありません。<a href="how-days-calculated.html#formula">計算式と考え方</a>を参照してください。</p>
 
   <h2 id="q3">シナリオの内容を教えてください</h2>
   <ul>
-    <li><strong>完全輸入停止</strong>：輸入がゼロになり、備蓄だけで消費を賄う仮定。</li>
-    <li><strong>ホルムズ海峡封鎖</strong>：輸入の<strong>87%</strong>が途絶える仮定に加え、需要が<strong>10%節約</strong>される仮定（<a href="hormuz-japan-imports.html">解説</a>）。</li>
-    <li><strong>輸入半減</strong>：輸入が半分になり、<strong>5%節約</strong>がある仮定。</li>
-    <li><strong>代替取引先の増加</strong>：代替で不足の多くを埋める想定。備蓄への負担は輸入半減より小さい<strong>説明用の仮定</strong>に加え、<strong>5%節約</strong>がある仮定。</li>
+    <li><strong>現在の供給見通し</strong>：政府が示す7月の調達見通しを説明し、枯渇日は算出しません。</li>
+    <li><strong>今日から完全輸入停止</strong>：輸入がゼロになり、備蓄だけで需要を賄う仮定。</li>
+    <li><strong>5月実績の中東分が途絶</strong>：2026年5月の中東依存度<strong>73.9%</strong>相当が途絶え、需要を<strong>10%抑える</strong>仮定（<a href="hormuz-japan-imports.html">解説</a>）。</li>
+    <li><strong>今日から輸入半減</strong>：輸入が半分になり、需要を<strong>5%抑える</strong>仮定。</li>
+    <li><strong>代替調達で不足を圧縮</strong>：不足率を35%まで抑え、需要も<strong>5%抑える</strong>説明用の仮定。</li>
   </ul>
 
   <h2 id="q4">データはいつ更新されますか？</h2>
-  <p>備蓄日数は手動更新です。運営者は<a href="https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/" target="_blank" rel="noopener noreferrer">石油備蓄の現況</a>の<strong>「石油備蓄の状況（推計値の速報）はこちら」</strong>（PDF）を毎日確認し、数値が変わればサイトも追従する想定です。閲覧時点の最新値は必ず同ページの速報リンクからご確認ください。</p>
+  <p>備蓄日数は<a href="https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/" target="_blank" rel="noopener noreferrer">石油備蓄の現況</a>の速報、輸入実績は経済産業省の石油統計、政策見通しは官邸・関係府省の公式発表を確認して随時更新しています。公表時期が異なるため、トップでは<strong>実績・見通し・備蓄</strong>を分けて表示しています。</p>
 
   <h2 id="q5">投資・備蓄・防災の判断に使っていいですか？</h2>
   <p><strong>推奨しません。</strong>モデルは意図的に単純化しており、実需給・政策・市場価格を反映しきれません。医療・投資・契約・防災計画など、実生活・事業上の重要な判断の根拠にしないでください。</p>

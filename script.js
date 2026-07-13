@@ -2,21 +2,29 @@
 // の「石油備蓄の状況（推計値の速報）はこちら」PDFを見て RESERVE_DAYS 等を更新（README参照）
 const RESERVE_DAYS = 201;
 const RESERVE_CAPACITY = 201;
-// REFERENCE は速報の「データ時点」（公表日と別のときあり）。日本の公表に合わせ JST 0 時で固定する。
-const REFERENCE = new Date('2026-07-10T00:00:00+09:00');
+// 仮想シナリオは「ページを開いた時点から起きた場合」として試算する。
+const SIMULATION_START = new Date();
 
 const SCENARIOS = {
+  current: {
+    importLoss: 0,
+    saving: 0,
+    label: '現在の供給見通し',
+    explain:
+      '政府は7月の原油調達が前年平月比で約100%まで回復し、必要量を上回る見通しを示しています。この見通しでは、備蓄だけを継続的に取り崩す前提を置けないため、枯渇日は算出しません。'
+  },
   full: {
     importLoss: 1.0,
     saving: 0,
-    label: '完全輸入停止',
-    explain: `石油の輸入が完全にゼロ。備蓄${RESERVE_DAYS}日分だけが頼り。`
+    label: '今日から完全輸入停止',
+    explain: `ページを開いた時点から石油輸入が完全にゼロになり、備蓄${RESERVE_DAYS}日分だけで需要を支える仮定です。`
   },
   hormuz: {
-    importLoss: 0.959,
+    importLoss: 0.739,
     saving: 0.10,
-    label: 'ホルムズ海峡封鎖・通航困難',
-    explain: '直近統計の中東依存度95.9%を試算前提に、当該輸入が途絶。その他地域からの輸入は継続し、国民が10%節約に協力。'
+    label: '5月実績の中東分が途絶',
+    explain:
+      '2026年5月の中東依存度73.9%を比較用の前提に、その分の輸入がページを開いた時点から途絶。その他地域からの輸入は継続し、需要を10%抑える仮定です。'
   },
   half: {
     importLoss: 0.50,
@@ -34,7 +42,7 @@ const SCENARIOS = {
   }
 };
 
-let currentScenario = 'full';
+let currentScenario = 'current';
 
 const $ = id => document.getElementById(id);
 
@@ -48,20 +56,22 @@ function escapeHtml(text) {
  * 線形モデル（guide/how-days-calculated.html#formula と同じ式）
  * dailyDraw = importLoss * (1 - saving)   … 1カレンダー日あたり減る「日分」
  * effectiveDays = RESERVE_DAYS / dailyDraw
- * depletionDate = REFERENCE + effectiveDays（ミリ秒換算）
- * elapsed = max(0, (now - REFERENCE) / 1日)
+ * depletionDate = SIMULATION_START + effectiveDays（ミリ秒換算）
+ * elapsed = max(0, (now - SIMULATION_START) / 1日)
  * remaining = max(0, RESERVE_DAYS - elapsed * dailyDraw)
  */
 function calcDepletion() {
   const sc = SCENARIOS[currentScenario];
   const dailyDraw = sc.importLoss * (1 - sc.saving);
-  if (dailyDraw <= 0) return { days: Infinity, date: null, pct: 100, dailyDraw: 0 };
+  if (dailyDraw <= 0) {
+    return { days: Infinity, date: null, pct: 100, dailyDraw: 0, remaining: RESERVE_DAYS };
+  }
 
   const effectiveDays = RESERVE_DAYS / dailyDraw;
-  const depletionDate = new Date(REFERENCE.getTime() + effectiveDays * 86400000);
+  const depletionDate = new Date(SIMULATION_START.getTime() + effectiveDays * 86400000);
 
   const now = new Date();
-  const elapsed = Math.max(0, (now - REFERENCE) / 86400000);
+  const elapsed = Math.max(0, (now - SIMULATION_START) / 86400000);
   const consumed = elapsed * dailyDraw;
   const remaining = Math.max(0, RESERVE_DAYS - consumed);
   const pct = (remaining / RESERVE_CAPACITY) * 100;
@@ -74,15 +84,15 @@ function updateCountdown() {
   const now = new Date();
 
   if (!date || !isFinite(date.getTime())) {
-    $('daysNum').textContent = '∞';
+    $('daysNum').textContent = '—';
     $('hoursNum').textContent = '--';
     $('minsNum').textContent = '--';
     $('secsNum').textContent = '--';
-    $('depletionDate').textContent = '枯渇しません';
+    $('depletionDate').textContent = '現在の見通しでは枯渇日を算出しません';
     $('gaugeBar').style.width = '100%';
     $('gaugeBar').style.background = 'linear-gradient(90deg, #1a6b1a, #2ecc40)';
     $('gaugePercent').textContent = '100%';
-    $('countdownSection').className = 'countdown-section danger-low';
+    $('countdownSection').className = 'countdown-section status-current';
     return;
   }
 
@@ -146,8 +156,12 @@ function updateResultText() {
   const { date, remaining } = calcDepletion();
   const el = $('scenarioResult');
   if (!date || !isFinite(date.getTime())) {
-    el.innerHTML =
-      '<p class="scenario-result-empty">この条件では、試算上は備蓄がほとんど減りません。</p>';
+    el.innerHTML = `
+      <div class="scenario-result-layout">
+        <p class="scenario-tagline">${escapeHtml(sc.explain)}</p>
+        <p class="scenario-result-empty">これは政府が6月11日に示した7月の調達見通しです。確定した月次輸入実績ではなく、情勢や契約・入港状況により変わる可能性があります。</p>
+      </div>
+    `;
     return;
   }
   const remainDays = Math.floor(remaining);

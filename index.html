@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>石油備蓄枯渇までのカウントダウン｜日本石油備蓄枯渇カウンター</title>
-<meta name="description" content="石油備蓄が枯渇するまでのカウントダウン。資源エネルギー庁の公表データに基づき、完全輸入停止・ホルムズ海峡の封鎖・通航困難・輸入半減・代替取引先の増加などの仮定で枯渇日を試算。非公式の可視化ツールです。">
+<title>日本の石油備蓄・輸入状況とシナリオ試算</title>
+<meta name="description" content="日本の石油備蓄、原油輸入の実績と政府見通しを一次情報に基づいて整理。完全輸入停止などが今日から起きた場合の備蓄枯渇日も比較できる非公式の可視化ツールです。">
 <link rel="canonical" href="https://gontarobee.github.io/oil/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://gontarobee.github.io/oil/">
-<meta property="og:title" content="石油備蓄枯渇までのカウントダウン｜日本石油備蓄枯渇カウンター">
-<meta property="og:description" content="石油備蓄が枯渇するまでのカウントダウン。資源エネルギー庁の公表データに基づき、シナリオ別に枯渇日を試算します。">
+<meta property="og:title" content="日本の石油備蓄・輸入状況とシナリオ試算">
+<meta property="og:description" content="最新の備蓄、原油輸入の実績・見通しと、仮想条件での備蓄枯渇日を分けて確認できます。">
 <meta property="og:site_name" content="日本石油備蓄枯渇カウンター">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="石油備蓄枯渇までのカウントダウン｜日本石油備蓄枯渇カウンター">
-<meta name="twitter:description" content="石油備蓄が枯渇するまでのカウントダウン。シナリオ別に枯渇日を試算します。">
+<meta name="twitter:title" content="日本の石油備蓄・輸入状況とシナリオ試算">
+<meta name="twitter:description" content="最新の備蓄と原油輸入状況を確認し、仮想条件での枯渇日を比較できます。">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -25,18 +25,84 @@
 <div class="container">
   <!-- Narration -->
   <div class="narration">
-    <div class="era">西暦 2026年</div>
+    <div class="era">2026年7月14日現在</div>
+    <h1>日本の石油備蓄と輸入状況</h1>
     <p>
-      ホルムズ海峡の封鎖・通航困難により<br>
-      日本のエネルギー供給は危機に瀕している。<br>
-      石油備蓄の枯渇まで、残された時間は——
+      5月の原油輸入実績は前年同月比61.6%。一方、政府は7月の調達について<br>
+      <strong>前年平月比で約100%まで回復し、必要量を上回る見通し</strong>を示しています。<br>
+      現在の状況と、万一の仮想シナリオを分けて確認できます。
     </p>
+  </div>
+
+  <!-- Current status -->
+  <section class="current-status" aria-labelledby="current-status-title">
+    <div class="status-heading">
+      <span class="status-badge">現在の状況</span>
+      <h2 id="current-status-title">実績・見通し・備蓄を分けて見る</h2>
+    </div>
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="card-kicker">備蓄速報・7月10日時点</div>
+        <div class="card-value">201<span class="card-unit">日分</span></div>
+        <div class="card-label">国家104・民間93・産油国共同4</div>
+      </div>
+      <div class="data-card">
+        <div class="card-kicker card-kicker--actual">確定前の月次速報・5月実績</div>
+        <div class="card-value">61.6<span class="card-unit">%</span></div>
+        <div class="card-label">原油輸入量の前年同月比</div>
+      </div>
+      <div class="data-card data-card--forecast">
+        <div class="card-kicker card-kicker--forecast">政府見通し・7月調達分</div>
+        <div class="card-value">約100<span class="card-unit">%</span></div>
+        <div class="card-label">前年平月比。必要量を上回る見通し</div>
+      </div>
+      <div class="data-card">
+        <div class="card-kicker">政府方針・6月11日公表</div>
+        <div class="card-value card-value--text">追加放出なし</div>
+        <div class="card-label">7月分を補う国家備蓄の追加放出</div>
+      </div>
+    </div>
+    <p class="status-sources">
+      「61.6%」は<a href="https://www.meti.go.jp/statistics/tyo/sekiyuso/result.html" target="_blank" rel="noopener noreferrer">経済産業省の5月石油統計速報</a>による実績。
+      「約100%」と追加放出なしは<a href="https://www.kantei.go.jp/jp/105/actions/202606/11kaigi_middle-east.html" target="_blank" rel="noopener noreferrer">第10回中東情勢に関する関係閣僚会議</a>で示された見通し・方針です。
+    </p>
+  </section>
+
+  <!-- Scenarios -->
+  <div class="controls-section">
+    <div class="controls-title">仮定を選んで備蓄への影響を比較</div>
+    <p class="controls-lead">初期表示は現在の政府見通しです。ほかのボタンは、選択した状況が<strong>ページを開いた時点から始まる</strong>と仮定する比較試算です。</p>
+
+    <div class="scenario-buttons">
+      <button class="scenario-btn active" onclick="setScenario('current', this)">
+        <span class="btn-title">現在の供給見通し</span>
+        <span class="btn-desc">7月調達は前年平月比約100%まで回復する見通し。<br>枯渇日は算出しません。</span>
+      </button>
+      <button class="scenario-btn" onclick="setScenario('full', this)">
+        <span class="btn-title">今日から完全輸入停止</span>
+        <span class="btn-desc">全ての石油輸入がゼロになり、<br>備蓄だけで需要を支える仮定。</span>
+      </button>
+      <button class="scenario-btn" onclick="setScenario('hormuz', this)">
+        <span class="btn-title">5月実績の中東分が途絶</span>
+        <span class="btn-desc">5月の中東依存度73.9%に相当する輸入が停止。<br>その他地域は継続し、需要を10%抑える仮定。</span>
+      </button>
+      <button class="scenario-btn" onclick="setScenario('half', this)">
+        <span class="btn-title">今日から輸入半減</span>
+        <span class="btn-desc">輸入量が半分に減少し、<br>需要を5%抑える仮定。</span>
+      </button>
+      <button class="scenario-btn" onclick="setScenario('alternatives', this)">
+        <span class="btn-title">代替調達で不足を圧縮</span>
+        <span class="btn-desc">不足率を35%まで抑え、需要も5%抑える<br>説明用の仮定です。</span>
+      </button>
+    </div>
+
+    <div class="scenario-result" id="scenarioResult"></div>
   </div>
 
   <!-- Countdown -->
   <div class="countdown-section" id="countdownSection">
     <div class="countdown-label">
-      <span class="highlight warning-pulse">石油備蓄枯渇</span>まで あと
+      選択した仮定での<span class="highlight warning-pulse">備蓄枯渇</span>まで
     </div>
     <div class="countdown-display" id="countdownDisplay">
       <div class="countdown-days-row">
@@ -53,40 +119,14 @@
     </div>
     <div class="depletion-date" id="depletionDate"></div>
     <p class="countdown-note">
-      ※ 上の<strong>日</strong>は<strong>いまから枯渇予測時刻までのカレンダー日数</strong>（下の時・分・秒とセット）です。公表の<strong>データ時点</strong>から今日までの経過も、簡易モデルで織り込んでいます。「日分」とカウントダウンの違いは、下のシナリオ欄の<strong>2つのカード</strong>と<strong>「違う理由」</strong>で整理しています。下の「総備蓄量」は<strong>公表その時点のスナップショット</strong>のため、数字が一致しないことがあります。
+      ※ これは実際の枯渇予測ではありません。最新公表の201日分を出発点に、選択した仮定が<strong>ページを開いた時点から始まる</strong>として線形計算します。実際の輸入、需要、製油所稼働、追加政策は織り込んでいません。
     </p>
-  </div>
-
-  <!-- Scenarios -->
-  <div class="controls-section">
-    <div class="controls-title">もしこうなったら？</div>
-
-    <div class="scenario-buttons">
-      <button class="scenario-btn active" onclick="setScenario('full', this)">
-        <span class="btn-title">完全輸入停止</span>
-        <span class="btn-desc">全ての石油輸入がゼロになった場合。<br>備蓄だけで生活を支える厳しいシナリオ。</span>
-      </button>
-      <button class="scenario-btn" onclick="setScenario('hormuz', this)">
-        <span class="btn-title">ホルムズ海峡封鎖・通航困難</span>
-        <span class="btn-desc">直近統計の中東依存度95.9%を試算前提に、中東からの輸入が停止。<br>その他地域からの輸入は継続。試算では10%節約を仮定。</span>
-      </button>
-      <button class="scenario-btn" onclick="setScenario('half', this)">
-        <span class="btn-title">輸入半減</span>
-        <span class="btn-desc">何らかの理由で輸入量が半分に。<br>国民も5%の節約に協力した場合。</span>
-      </button>
-      <button class="scenario-btn" onclick="setScenario('alternatives', this)">
-        <span class="btn-title">代替取引先の増加</span>
-        <span class="btn-desc">主要ルートが減っても、他国・他ルートで不足の多くを埋める。<br>試算では5%節約。数値は説明用の仮定です。</span>
-      </button>
-    </div>
-
-    <div class="scenario-result" id="scenarioResult"></div>
   </div>
 
   <!-- Oil gauge -->
   <div class="gauge-section">
     <div class="gauge-container">
-      <div class="gauge-title">試算上の備蓄残量</div>
+      <div class="gauge-title">選択した仮定での試算上の備蓄残量</div>
       <div class="gauge-bar-wrapper">
         <div class="gauge-bar" id="gaugeBar" style="width:100%"></div>
         <div class="gauge-percent" id="gaugePercent">--%</div>
@@ -95,26 +135,6 @@
         <span>0日</span>
         <span>201日 (2026年7月10日)</span>
       </div>
-    </div>
-  </div>
-
-  <!-- Data cards -->
-  <div class="data-grid">
-    <div class="data-card">
-      <div class="card-value">201<span class="card-unit">日分</span></div>
-      <div class="card-label">公表時点の総備蓄量（2026年7月10日時点）</div>
-    </div>
-    <div class="data-card">
-      <div class="card-value">45<span class="card-unit">日分</span></div>
-      <div class="card-label">第1弾放出決定量（IEA協調）</div>
-    </div>
-    <div class="data-card">
-      <div class="card-value">15<span class="card-unit">日分</span></div>
-      <div class="card-label">民間備蓄放出（3/16〜）</div>
-    </div>
-    <div class="data-card">
-      <div class="card-value">30<span class="card-unit">日分</span></div>
-      <div class="card-label">国家備蓄放出 第1弾（3月下旬〜）</div>
     </div>
   </div>
 
@@ -172,7 +192,7 @@
     <strong>主なデータ出典</strong><br>
     資源エネルギー庁「石油備蓄の現況」令和8年7月13日公表（7月10日時点）<br>
     国家備蓄104日分 / 民間備蓄93日分 / 産油国共同備蓄4日分 ＝ 合計 <strong>201日分</strong><br>
-    <p class="source-note">※ 上記は公表PDFの<strong>データ時点</strong>における値です。画面上部のカウントダウンは<strong>いまから</strong>枯渇予測までの目安で、データ時点から今日までの経過を簡易モデルに織り込むため、この日数とは一致しません。</p>
+    <p class="source-note">※ 上記は公表PDFの<strong>データ時点</strong>における値です。仮想シナリオは、この201日分を出発点に、ページを開いた時点から選択条件が始まるものとして比較します。</p>
     <a href="https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/" target="_blank" rel="noopener noreferrer">
       石油備蓄の現況（一覧ページ）
     </a>

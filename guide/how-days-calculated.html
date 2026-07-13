@@ -30,9 +30,10 @@
   <p><a href="https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/" target="_blank" rel="noopener noreferrer">石油備蓄の現況（資源エネルギー庁）</a></p>
 
   <h2 id="counter">本サイトのカウンターでの試算</h2>
-  <p>トップの「枯渇までのカウントダウン」は、<strong>個人が運営する非公式の可視化</strong>です。次のような<strong>極めて単純なモデル</strong>に基づきます。</p>
+  <p>トップのシナリオ試算は、<strong>個人が運営する非公式の可視化</strong>です。現在の供給見通しそのものではなく、選択した仮定がページを開いた時点から始まった場合を比較する<strong>極めて単純なモデル</strong>です。</p>
   <ul>
-    <li>ある時点の<strong>備蓄日数</strong>（トップに記載の起算値）を出発点とする。</li>
+    <li>最新公表の<strong>備蓄日数</strong>（トップに記載の値）を試算の出発点とする。</li>
+    <li>仮想シナリオは、ページを開いた時点から始まるものとする。公表日から閲覧日までに実際に起きた輸入・消費を推測して差し引かない。</li>
     <li>シナリオごとに「1日あたり、備蓄が何「日分」ずつ減るか」を<strong>輸入損失率・節約率</strong>からおおまかに決める。</li>
     <li>そのペースで線形に減り続けると仮定し、ゼロになる日時を表示する。</li>
   </ul>
@@ -41,7 +42,7 @@
   <p>次の記号は、トップの <code>script.js</code> にある変数名に対応させています。</p>
   <ul>
     <li><strong>R</strong> … 起算の備蓄日数（コードでは <code>RESERVE_DAYS</code>）</li>
-    <li><strong>t₀</strong> … そのデータの基準日時（コードでは <code>REFERENCE</code>、JST の 0 時で固定）</li>
+    <li><strong>t₀</strong> … 仮想シナリオの開始日時（コードでは <code>SIMULATION_START</code>、ページを開いた時点）</li>
     <li><strong>p</strong> … 輸入損失の強さ（コードでは <code>importLoss</code>、0〜1）。「平常の需要のうち、備蓄だけで埋めなければならない割合が p 倍のペースになる」という<strong>単純化</strong>です。</li>
     <li><strong>s</strong> … 節約率（コードでは <code>saving</code>、0〜1）。需要が <code>(1 − s)</code> 倍になると仮定します。</li>
     <li><strong>now</strong> … ページを見ているいまの日時</li>
@@ -51,11 +52,11 @@
     <p><strong>1カレンダー日あたりの備蓄の減り（「日分」／日）</strong></p>
     <p><code>dailyDraw = p × (1 − s)</code></p>
     <p>例: 輸入半減なら <code>p = 0.5</code>、5% 節約なら <code>s = 0.05</code> なので <code>dailyDraw = 0.5 × 0.95 = 0.475</code>。完全輸入停止なら <code>p = 1</code>、節約なしなら <code>s = 0</code> で <code>dailyDraw = 1</code>。</p>
-    <p><strong>データ基準から見た「枯渇までの日数」（連続値）</strong></p>
+    <p><strong>シナリオ開始から見た「枯渇までの日数」（連続値）</strong></p>
     <p><code>effectiveDays = R ÷ dailyDraw</code></p>
     <p><strong>枯渇の目安の日時</strong>（基準から effectiveDays 日後）</p>
     <p><code>depletionDate = t₀ + effectiveDays</code>（実装ではミリ秒に換算して加算）</p>
-    <p><strong>いま残っている備蓄（「日分」）</strong></p>
+    <p><strong>試算上いま残っている備蓄（「日分」）</strong></p>
     <p><code>elapsed = max(0, (now − t₀) の経過日数)</code></p>
     <p><code>consumed = elapsed × dailyDraw</code></p>
     <p><code>remaining = max(0, R − consumed)</code></p>
