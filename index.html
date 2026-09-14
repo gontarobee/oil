@@ -25,11 +25,11 @@
 <div class="container">
   <!-- Narration -->
   <div class="narration">
-    <div class="era">2026年7月14日現在</div>
+    <div class="era">2026年9月15日現在</div>
     <h1>日本の石油備蓄と輸入状況</h1>
     <p>
-      5月の原油輸入実績は前年同月比61.6%。一方、政府は7月の調達について<br>
-      <strong>前年平月比で約100%まで回復し、必要量を上回る見通し</strong>を示しています。<br>
+      7月の原油輸入実績は前年同月比117.0%。一方、政府は8月25日、<br>
+      <strong>ガソリン価格を全国平均170円/ℓ程度に抑制する方針を継続</strong>すると示しています。<br>
       現在の状況と、万一の仮想シナリオを分けて確認できます。
     </p>
   </div>
@@ -42,29 +42,29 @@
     </div>
     <div class="data-grid">
       <div class="data-card">
-        <div class="card-kicker">備蓄速報・7月10日時点</div>
+        <div class="card-kicker">備蓄速報・9月11日時点</div>
         <div class="card-value">201<span class="card-unit">日分</span></div>
-        <div class="card-label">国家104・民間93・産油国共同4</div>
+        <div class="card-label">国家103・民間94・産油国共同4</div>
       </div>
       <div class="data-card">
-        <div class="card-kicker card-kicker--actual">確定前の月次速報・5月実績</div>
-        <div class="card-value">61.6<span class="card-unit">%</span></div>
+        <div class="card-kicker card-kicker--actual">月次速報・7月実績</div>
+        <div class="card-value">117.0<span class="card-unit">%</span></div>
         <div class="card-label">原油輸入量の前年同月比</div>
       </div>
       <div class="data-card data-card--forecast">
-        <div class="card-kicker card-kicker--forecast">政府見通し・7月調達分</div>
-        <div class="card-value">約100<span class="card-unit">%</span></div>
-        <div class="card-label">前年平月比。必要量を上回る見通し</div>
+        <div class="card-kicker card-kicker--forecast">政府方針・8月25日公表</div>
+        <div class="card-value card-value--text">170円/ℓ抑制</div>
+        <div class="card-label">ガソリン全国平均の抑制継続</div>
       </div>
       <div class="data-card">
-        <div class="card-kicker">政府方針・6月11日公表</div>
-        <div class="card-value card-value--text">追加放出なし</div>
-        <div class="card-label">7月分を補う国家備蓄の追加放出</div>
+        <div class="card-kicker">政府説明・8月26日公表</div>
+        <div class="card-value card-value--text">目詰まり解消</div>
+        <div class="card-label">石油製品の流通相談が減少し収束傾向</div>
       </div>
     </div>
     <p class="status-sources">
-      「61.6%」は<a href="https://www.meti.go.jp/statistics/tyo/sekiyuso/result.html" target="_blank" rel="noopener noreferrer">経済産業省の5月石油統計速報</a>による実績。
-      「約100%」と追加放出なしは<a href="https://www.kantei.go.jp/jp/105/actions/202606/11kaigi_middle-east.html" target="_blank" rel="noopener noreferrer">第10回中東情勢に関する関係閣僚会議</a>で示された見通し・方針です。
+      「117.0%」は<a href="https://www.meti.go.jp/statistics/tyo/sekiyuso/result.html" target="_blank" rel="noopener noreferrer">経済産業省の7月石油統計速報</a>（8月31日公表）による実績。
+      「170円/ℓ抑制」は<a href="https://www.kantei.go.jp/jp/105/statement/2026/0825kaiken.html" target="_blank" rel="noopener noreferrer">8月25日の会見</a>、目詰まり解消の説明は<a href="https://www.kantei.go.jp/jp/105/actions/202608/26gx.html" target="_blank" rel="noopener noreferrer">第17回GX実行会議</a>（8月26日）です。
     </p>
     <div class="published-level" aria-label="掲載履歴の最高値に対する現在の公表備蓄日数">
       <div class="gauge-title">公表備蓄日数の水準</div>
@@ -88,7 +88,7 @@
     <div class="scenario-buttons">
       <button class="scenario-btn active" onclick="setScenario('current', this)">
         <span class="btn-title">現在の供給見通し</span>
-        <span class="btn-desc">7月調達は前年平月比約100%まで回復する見通し。<br>枯渇日は算出しません。</span>
+        <span class="btn-desc">7月の原油輸入は前年同月比117.0%。<br>現在の供給見通しでは枯渇日は算出しません。</span>
       </button>
       <button class="scenario-btn" onclick="setScenario('full', this)">
         <span class="btn-title">今日から完全輸入停止</span>
@@ -203,8 +203,8 @@
   <!-- Source -->
   <div class="source">
     <strong>主なデータ出典</strong><br>
-    資源エネルギー庁「石油備蓄の現況」令和8年7月13日公表（7月10日時点）<br>
-    国家備蓄104日分 / 民間備蓄93日分 / 産油国共同備蓄4日分 ＝ 合計 <strong>201日分</strong><br>
+    資源エネルギー庁「石油備蓄の現況」令和8年9月14日公表（9月11日時点）<br>
+    国家備蓄103日分 / 民間備蓄94日分 / 産油国共同備蓄4日分 ＝ 合計 <strong>201日分</strong><br>
     <p class="source-note">※ 上記は公表PDFの<strong>データ時点</strong>における値です。仮想シナリオは、この201日分を出発点に、ページを開いた時点から選択条件が始まるものとして比較します。</p>
     <a href="https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl001/" target="_blank" rel="noopener noreferrer">
       石油備蓄の現況（一覧ページ）

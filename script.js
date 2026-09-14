@@ -11,7 +11,7 @@ const SCENARIOS = {
     saving: 0,
     label: '現在の供給見通し',
     explain:
-      '政府は7月の原油調達が前年平月比で約100%まで回復し、必要量を上回る見通しを示しています。この見通しでは、備蓄だけを継続的に取り崩す前提を置けないため、枯渇日は算出しません。'
+      '7月の原油輸入は前年同月比117.0%（8月31日公表の月次速報）。現在の供給見通しでは、備蓄だけを継続的に取り崩す前提を置けないため、枯渇日は算出しません。'
   },
   full: {
     importLoss: 1.0,
@@ -159,7 +159,7 @@ function updateResultText() {
     el.innerHTML = `
       <div class="scenario-result-layout">
         <p class="scenario-tagline">${escapeHtml(sc.explain)}</p>
-        <p class="scenario-result-empty">これは政府が6月11日に示した7月の調達見通しです。確定した月次輸入実績ではなく、情勢や契約・入港状況により変わる可能性があります。</p>
+        <p class="scenario-result-empty">7月の117.0%は確定した月次速報ですが、それ以降の入港・契約・情勢は日々変わります。将来の供給見通しを保証するものではありません。</p>
       </div>
     `;
     return;
