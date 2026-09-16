@@ -88,7 +88,7 @@
     <div class="scenario-buttons">
       <button class="scenario-btn active" onclick="setScenario('current', this)">
         <span class="btn-title">現在の供給見通し</span>
-        <span class="btn-desc">7月の原油輸入は前年同月比117.0%。<br>現在の供給見通しでは枯渇日は算出しません。</span>
+        <span class="btn-desc">7月の原油輸入は前年同月比117.0%。<br>公表データの供給状況を表示します。</span>
       </button>
       <button class="scenario-btn" onclick="setScenario('full', this)">
         <span class="btn-title">今日から完全輸入停止</span>
@@ -111,9 +111,9 @@
     <div class="scenario-result" id="scenarioResult"></div>
   </div>
 
-  <!-- Countdown -->
+  <!-- Countdown / supply dashboard -->
   <div class="countdown-section" id="countdownSection">
-    <div class="countdown-label">
+    <div class="countdown-label" id="countdownLabel">
       選択した仮定での<span class="highlight warning-pulse">備蓄枯渇</span>まで
     </div>
     <div class="countdown-display" id="countdownDisplay">
@@ -129,8 +129,21 @@
         <div class="countdown-number time" id="secsNum">--</div>
       </div>
     </div>
+    <div class="supply-dashboard" id="supplyDashboard" hidden>
+      <div class="supply-dashboard-hero">
+        <span class="supply-status-badge">供給継続中</span>
+        <div class="supply-hero-value">
+          <span class="countdown-number days supply-days-num" id="supplyDaysNum">201</span>
+          <span class="supply-hero-unit">日分</span>
+        </div>
+        <p class="supply-hero-caption" id="supplyHeroCaption">公表備蓄（9月13日時点）</p>
+      </div>
+      <div class="supply-chip-row" id="supplyChipRow" aria-label="現在の供給指標"></div>
+      <p class="supply-trend" id="supplyTrend"></p>
+      <p class="supply-compare" id="supplyCompare"></p>
+    </div>
     <div class="depletion-date" id="depletionDate"></div>
-    <p class="countdown-note">
+    <p class="countdown-note" id="countdownNote">
       ※ これは実際の枯渇予測ではありません。最新公表の201日分を出発点に、選択した仮定が<strong>ページを開いた時点から始まる</strong>として線形計算します。実際の輸入、需要、製油所稼働、追加政策は織り込んでいません。
     </p>
   </div>
@@ -225,8 +238,8 @@
 
 <script src="nav.js"></script>
 <script src="analytics.js"></script>
-<script src="script.js"></script>
 <script src="reserve-chart.js"></script>
+<script src="script.js"></script>
 <script src="news-timeline.js"></script>
 </body>
 </html>

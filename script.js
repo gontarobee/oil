@@ -5,6 +5,21 @@ const SCENARIO_BASE_DAYS = RESERVE_DAYS;
 // 仮想シナリオは「ページを開いた時点から起きた場合」として試算する。
 const SIMULATION_START = new Date();
 
+/** 「現在の供給見通し」ダッシュボード表示（index.html の現状カードと揃える） */
+const CURRENT_SUPPLY = {
+  asOfLabel: '9月13日',
+  national: 102,
+  private: 94,
+  joint: 4,
+  importYoY: 117.0,
+  subsidyPerL: 51,
+  publishedLevelPct: 82.4,
+  maxHistorical: 244,
+};
+
+const DEFAULT_COUNTDOWN_NOTE =
+  '※ これは実際の枯渇予測ではありません。最新公表の201日分を出発点に、選択した仮定が<strong>ページを開いた時点から始まる</strong>として線形計算します。実際の輸入、需要、製油所稼働、追加政策は織り込んでいません。';
+
 const SCENARIOS = {
   current: {
     importLoss: 0,
@@ -43,6 +58,7 @@ const SCENARIOS = {
 };
 
 let currentScenario = 'current';
+let countdownViewMode = null;
 
 const $ = id => document.getElementById(id);
 
@@ -79,21 +95,104 @@ function calcDepletion() {
   return { days: effectiveDays, date: depletionDate, pct, dailyDraw, remaining };
 }
 
+function formatMdJa(iso) {
+  const [, m, d] = iso.split('-').map(Number);
+  return `${m}月${d}日`;
+}
+
+function getReserveTrendSummary(windowDays = 14) {
+  const hist = window.RESERVE_HISTORY;
+  if (!hist || hist.length < 2) {
+    return { text: '履歴データを読み込み中…', delta: null, latest: null };
+  }
+  const tail = hist.slice(-windowDays);
+  const totals = tail.map((r) => r.total);
+  const min = Math.min(...totals);
+  const max = Math.max(...totals);
+  const latest = tail[tail.length - 1];
+  const compareIdx = Math.max(0, hist.length - 1 - 7);
+  const weekAgo = hist[compareIdx];
+  const delta = latest.total - weekAgo.total;
+  const deltaText =
+    delta === 0 ? '±0日分' : delta > 0 ? `+${delta}日分` : `${delta}日分`;
+  const rangeText =
+    min === max ? `${min}日分で横ばい` : `${min}〜${max}日分`;
+  return {
+    text: `直近${tail.length}公表日は${rangeText}（1週間前比 ${deltaText}）`,
+    delta,
+    latest,
+  };
+}
+
+function renderSupplyDashboard() {
+  const labelEl = $('countdownLabel');
+  const displayEl = $('countdownDisplay');
+  const dashboardEl = $('supplyDashboard');
+  const noteEl = $('countdownNote');
+  const trend = getReserveTrendSummary();
+
+  labelEl.innerHTML =
+    '現在の<span class="highlight supply-highlight">供給見通し</span>（公表データ）';
+  displayEl.hidden = true;
+  dashboardEl.hidden = false;
+
+  $('supplyDaysNum').textContent = String(RESERVE_DAYS);
+  $('supplyHeroCaption').textContent =
+    `公表備蓄（${CURRENT_SUPPLY.asOfLabel}時点）　国${CURRENT_SUPPLY.national}・民${CURRENT_SUPPLY.private}・産油${CURRENT_SUPPLY.joint}`;
+
+  $('supplyChipRow').innerHTML = `
+    <span class="supply-chip">原油輸入 <strong>${CURRENT_SUPPLY.importYoY}%</strong><span class="supply-chip-sub">7月・前年同月比</span></span>
+    <span class="supply-chip">燃料油補助 <strong>${CURRENT_SUPPLY.subsidyPerL}円/L</strong><span class="supply-chip-sub">9/17〜</span></span>
+    <span class="supply-chip">公表水準 <strong>${CURRENT_SUPPLY.publishedLevelPct}%</strong><span class="supply-chip-sub">最高${CURRENT_SUPPLY.maxHistorical}日分比</span></span>
+  `;
+
+  const asOfNote = trend.latest
+    ? `（最新データ時点 ${formatMdJa(trend.latest.asOf)}）`
+    : '';
+  $('supplyTrend').textContent = `${trend.text}${asOfNote}`;
+
+  const fullStopDays = RESERVE_DAYS;
+  $('supplyCompare').innerHTML =
+    `参考：<button type="button" class="supply-compare-link" id="supplyCompareBtn">今日から完全輸入停止</button>なら、同じ${RESERVE_DAYS}日分で試算上 <strong>約${fullStopDays}日</strong> 持つ仮定`;
+
+  $('depletionDate').textContent =
+    '輸入が続く見通しのため、枯渇日は算出しません';
+  noteEl.innerHTML =
+    '※ 上記は公表速報・月次実績に基づく<strong>現在の供給状況</strong>です。危機シナリオの枯渇試算は上のボタンから選べます。';
+  $('gaugeBar').style.width = '100%';
+  $('gaugeBar').style.background = 'linear-gradient(90deg, #1a6b1a, #2ecc40)';
+  $('gaugePercent').textContent = '100%';
+  $('countdownSection').className = 'countdown-section status-current';
+}
+
+function renderCrisisCountdown() {
+  const labelEl = $('countdownLabel');
+  const displayEl = $('countdownDisplay');
+  const dashboardEl = $('supplyDashboard');
+  const noteEl = $('countdownNote');
+
+  labelEl.innerHTML =
+    '選択した仮定での<span class="highlight warning-pulse">備蓄枯渇</span>まで';
+  displayEl.hidden = false;
+  dashboardEl.hidden = true;
+  noteEl.innerHTML = DEFAULT_COUNTDOWN_NOTE;
+}
+
 function updateCountdown() {
-  const { date, pct, dailyDraw, remaining } = calcDepletion();
+  const { date, pct } = calcDepletion();
   const now = new Date();
 
   if (!date || !isFinite(date.getTime())) {
-    $('daysNum').textContent = '—';
-    $('hoursNum').textContent = '--';
-    $('minsNum').textContent = '--';
-    $('secsNum').textContent = '--';
-    $('depletionDate').textContent = '現在の見通しでは枯渇日を算出しません';
-    $('gaugeBar').style.width = '100%';
-    $('gaugeBar').style.background = 'linear-gradient(90deg, #1a6b1a, #2ecc40)';
-    $('gaugePercent').textContent = '100%';
-    $('countdownSection').className = 'countdown-section status-current';
+    if (countdownViewMode !== 'supply') {
+      renderSupplyDashboard();
+      countdownViewMode = 'supply';
+    }
     return;
+  }
+
+  if (countdownViewMode !== 'crisis') {
+    renderCrisisCountdown();
+    countdownViewMode = 'crisis';
   }
 
   const diff = date - now;
@@ -209,10 +308,24 @@ function updateResultText() {
 
 function setScenario(type, btnEl) {
   currentScenario = type;
-  document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
-  btnEl.classList.add('active');
+  countdownViewMode = null;
+  document.querySelectorAll('.scenario-btn').forEach((b) => b.classList.remove('active'));
+  const btn =
+    btnEl || document.querySelector(`.scenario-btn[onclick*="'${type}'"]`);
+  if (btn) btn.classList.add('active');
   updateCountdown();
   updateResultText();
+}
+
+const supplyDashboardEl = $('supplyDashboard');
+if (supplyDashboardEl) {
+  supplyDashboardEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('#supplyCompareBtn');
+    if (!btn) return;
+    const fullBtn = document.querySelector('.scenario-btn[onclick*="full"]');
+    setScenario('full', fullBtn);
+    $('countdownSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
 }
 
 updateCountdown();

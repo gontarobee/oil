@@ -9,6 +9,7 @@ const CHART_GRID_STROKE = 'rgba(255,255,255,0.14)';
 const CHART_POINT_FILL = '#1a1528';
 const CHART_POINT_STROKE = '#ffb84d';
 
+/** script.js の供給ダッシュボードから参照 */
 const RESERVE_HISTORY = [
   { published: '2026-03-17', asOf: '2026-03-14', national: 146, private: 90, joint: 6, total: 242 },
   { published: '2026-03-18', asOf: '2026-03-15', national: 146, private: 89, joint: 6, total: 241 },
@@ -324,6 +325,8 @@ function buildChart() {
     });
   });
 }
+
+window.RESERVE_HISTORY = RESERVE_HISTORY;
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', buildChart);

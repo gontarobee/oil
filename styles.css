@@ -298,6 +298,114 @@ body {
   font-weight: 600;
 }
 
+/* ── Supply dashboard (current scenario) ── */
+.supply-highlight {
+  color: var(--green);
+  text-shadow: 0 0 20px rgba(93, 211, 158, 0.45);
+}
+.supply-dashboard {
+  margin: 8px auto 0;
+  max-width: 640px;
+  padding: 0 12px;
+}
+.supply-dashboard-hero {
+  position: relative;
+  padding: 8px 0 4px;
+}
+.supply-status-badge {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(46, 204, 64, 0.15);
+  border: 1px solid rgba(93, 211, 158, 0.45);
+  color: var(--green);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.supply-hero-value {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+}
+.supply-days-num {
+  font-size: 7rem;
+}
+.supply-hero-unit {
+  font-size: 1.6rem;
+  color: var(--green);
+  letter-spacing: 0.08em;
+}
+.supply-hero-caption {
+  margin: 8px 0 0;
+  color: #9aa3b8;
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+}
+.supply-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.supply-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(93, 211, 158, 0.22);
+  color: #c8d0e0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+.supply-chip strong {
+  color: var(--green);
+  font-family: 'Orbitron', monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.supply-chip-sub {
+  margin-top: 4px;
+  color: #7a8498;
+  font-size: 0.72rem;
+}
+.supply-trend {
+  margin: 18px 0 0;
+  color: var(--amber);
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+.supply-compare {
+  margin: 14px 0 0;
+  color: #8890a8;
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+.supply-compare-link {
+  padding: 0;
+  border: none;
+  background: none;
+  color: #9fd4ff;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.supply-compare-link:hover {
+  color: #c8e8ff;
+}
+.supply-compare strong {
+  color: #ffb84d;
+  font-weight: 700;
+}
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.2; }
@@ -1043,6 +1151,8 @@ body {
   .countdown-separator { font-size: 1.8rem; }
   .days-unit { font-size: 1.5rem; }
   .countdown-label { font-size: 1.2rem; }
+  .supply-days-num { font-size: 4.5rem; }
+  .supply-chip { min-width: calc(50% - 10px); }
   .data-card .card-value { font-size: 1.7rem; }
   .scenario-btn { min-width: 100%; }
 }
